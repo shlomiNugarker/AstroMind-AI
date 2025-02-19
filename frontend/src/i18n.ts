@@ -3,10 +3,10 @@ import { initReactI18next } from "react-i18next";
 import enTranslation from "./locales/en.json";
 import heTranslation from "./locales/he.json";
 
-// const getUserLanguage = () => {
-//   const userLang = navigator.language || navigator.languages[0];
-//   return userLang.split("-")[0];
-// };
+const getUserLanguage = () => {
+  const userLang = navigator.language || navigator.languages[0];
+  return userLang.split("-")[0];
+};
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -17,7 +17,7 @@ i18n.use(initReactI18next).init({
       translation: heTranslation,
     },
   },
-  lng: "he", // getUserLanguage(),
+  lng: getUserLanguage(),
   fallbackLng: "he",
   interpolation: {
     escapeValue: false,

@@ -9,18 +9,8 @@ const Home = () => {
   useEffect(() => {
     if (!user) return;
 
-    switch (user.role) {
-      case "coach":
-        navigate("/my-trainees");
-        break;
-      case "super_admin":
-        navigate("/admin/users");
-        break;
-      case "trainee":
-        navigate("/trainees-dashboard");
-        break;
-      default:
-        break;
+    if (user.role === "admin") {
+      navigate("/admin/users");
     }
   }, [user, navigate]);
 

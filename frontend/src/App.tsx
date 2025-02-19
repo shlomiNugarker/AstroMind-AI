@@ -8,9 +8,7 @@ import Layout from "./components/Layout";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import AdminUsers from "./pages/AdminUsers.tsx";
-import MyTrainees from "./pages/MyTrainees.tsx";
 import Home from "./pages/Home.tsx";
-import Trainee from "./pages/Trainee.tsx";
 
 const AppRoutes = () => {
   const { i18n } = useTranslation();
@@ -30,17 +28,9 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
 
-        <Route element={<ProtectedRoute allowedRoles={["coach"]} />}>
-          <Route path="/coach-dashboard" element={<Dashboard />} />
-          <Route path="/my-trainees" element={<MyTrainees />} />
-        </Route>
-
-        <Route element={<ProtectedRoute allowedRoles={["super_admin"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />
-        </Route>
-
-        <Route element={<ProtectedRoute allowedRoles={["trainee"]} />}>
-          <Route path="/trainees-dashboard" element={<Trainee />} />
         </Route>
       </Route>
     </Routes>

@@ -5,7 +5,6 @@ export const authService = {
   register,
   logout,
   getUser,
-  addTrainee,
 };
 
 async function login(email: string, password: string) {
@@ -14,26 +13,12 @@ async function login(email: string, password: string) {
   return user;
 }
 
-async function register(
-  name: string,
-  email: string,
-  password: string,
-  role: string = "trainee"
-) {
+async function register(name: string, email: string, password: string) {
   return httpService.post("/api/auth/register", {
     name,
     email,
     password,
-    role,
   });
-}
-
-async function addTrainee(name: string, email: string, password: string) {
-  return httpService.post(
-    "/api/users/add-trainee",
-    { name, email, password },
-    true
-  );
 }
 
 async function logout() {

@@ -28,27 +28,20 @@ const Header = () => {
       roles: [""],
     },
     {
-      label: t("coach_dashboard"),
-      path: "/coach-dashboard",
-      roles: ["coach"],
+      label: t("admin_dashboard"),
+      path: "/admin/users",
+      roles: ["admin"],
     },
-    {
-      label: t("my_trainees"),
-      path: "/my-trainees",
-      roles: ["coach"],
-    },
-    {
-      label: t("trainee_dashboard"),
-      path: "/trainees-dashboard",
-      roles: ["trainee"],
-    },
-    { label: t("manage_users"), path: "/admin/users", roles: ["super_admin"] },
   ];
 
   const authItems = [
     {
       label: t("login_page"),
       path: "/login",
+    },
+    {
+      label: t("register_page"),
+      path: "/register",
     },
   ];
 
