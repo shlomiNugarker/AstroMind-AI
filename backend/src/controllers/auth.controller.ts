@@ -31,11 +31,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const registerUser = async (
-  req: Request,
-  res: Response,
-  role: "trainee" | "coach" | "super_admin"
-) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
 
@@ -43,22 +39,15 @@ export const registerUser = async (
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const newUser = await createUser(name, email, password, role);
+    const newUser = await createUser(name, email, password, "user");
     res
       .status(201)
-      .json({ message: `${role} registered successfully`, user: newUser });
+      .json({ message: "User registered successfully", user: newUser });
   } catch (error) {
-    console.error(`❌ Error in registerUser (${role}):`, error);
+    console.error("❌ Error in registerUser:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
-export const registerTrainee = (req: Request, res: Response) =>
-  registerUser(req, res, "trainee");
-export const registerCoach = (req: Request, res: Response) =>
-  registerUser(req, res, "coach");
-export const registerSuperAdmin = (req: Request, res: Response) =>
-  registerUser(req, res, "super_admin");
 
 export const forgotPassword = async (req: Request, res: Response) => {
   try {

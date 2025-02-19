@@ -5,12 +5,7 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: "super_admin" | "coach" | "trainee";
-  coachId: {
-    type: typeof Schema.Types.ObjectId;
-    ref: string;
-    required: () => boolean;
-  };
+  role: string; 
   isActive: {
     type: BooleanConstructor;
     default: boolean;
@@ -27,15 +22,8 @@ const userSchema: Schema<IUser> = new Schema(
     password: { type: String, required: true },
     role: {
       type: String,
-      enum: ["super_admin", "coach", "trainee"],
-      default: "trainee",
-    },
-    coachId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: function (this: any) {
-        return this.role === "trainee";
-      },
+      enum: ["user", "admin"],
+      default: "user",
     },
     isActive: { type: Boolean, default: true },
     resetPasswordToken: { type: String },

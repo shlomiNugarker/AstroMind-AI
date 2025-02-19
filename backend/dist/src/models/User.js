@@ -44,15 +44,8 @@ const userSchema = new mongoose_1.Schema({
     password: { type: String, required: true },
     role: {
         type: String,
-        enum: ["super_admin", "coach", "trainee"],
-        default: "trainee",
-    },
-    coachId: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "User",
-        required: function () {
-            return this.role === "trainee";
-        },
+        enum: ["user", "admin"],
+        default: "user",
     },
     isActive: { type: Boolean, default: true },
     resetPasswordToken: { type: String },

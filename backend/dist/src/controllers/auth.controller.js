@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAuthenticatedUser = exports.resetPassword = exports.forgotPassword = exports.registerSuperAdmin = exports.registerCoach = exports.registerTrainee = exports.registerUser = exports.loginUser = void 0;
+exports.getAuthenticatedUser = exports.resetPassword = exports.forgotPassword = exports.registerUser = exports.loginUser = void 0;
 const jwt_1 = require("../utils/jwt");
 const user_service_1 = require("../services/user.service");
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -49,29 +49,23 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
-const registerUser = (req, res, role) => __awaiter(void 0, void 0, void 0, function* () {
+const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, password } = req.body;
         if (yield (0, user_service_1.findUserByEmail)(email)) {
             return res.status(400).json({ message: "User already exists" });
         }
-        const newUser = yield (0, user_service_1.createUser)(name, email, password, role);
+        const newUser = yield (0, user_service_1.createUser)(name, email, password, "user");
         res
             .status(201)
-            .json({ message: `${role} registered successfully`, user: newUser });
+            .json({ message: "User registered successfully", user: newUser });
     }
     catch (error) {
-        console.error(`❌ Error in registerUser (${role}):`, error);
+        console.error("❌ Error in registerUser:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 });
 exports.registerUser = registerUser;
-const registerTrainee = (req, res) => (0, exports.registerUser)(req, res, "trainee");
-exports.registerTrainee = registerTrainee;
-const registerCoach = (req, res) => (0, exports.registerUser)(req, res, "coach");
-exports.registerCoach = registerCoach;
-const registerSuperAdmin = (req, res) => (0, exports.registerUser)(req, res, "super_admin");
-exports.registerSuperAdmin = registerSuperAdmin;
 const forgotPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email } = req.body;

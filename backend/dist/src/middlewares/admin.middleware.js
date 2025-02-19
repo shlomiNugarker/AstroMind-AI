@@ -18,7 +18,7 @@ const adminMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        if (user.role !== "super_admin") {
+        if (user.role !== "admin") {
             return res.status(403).json({ message: "Access denied. Admins only." });
         }
         next();

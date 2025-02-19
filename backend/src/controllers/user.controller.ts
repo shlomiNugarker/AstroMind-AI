@@ -5,7 +5,7 @@ import { deleteUserById, findUserByEmail } from "../services/user.service";
 export const getProfile = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
-    const user = await User.findById(req.userId).select("-password"); // הסרת הסיסמה מהתגובה
+    const user = await User.findById(req.userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -21,11 +21,11 @@ export const updateProfile = async (req: Request, res: Response) => {
   try {
     // @ts-ignore
     const userId = req.userId;
-    const { name, email, age } = req.body;
+    const { name, email } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { name, email, age },
+      { name, email },
       { new: true, runValidators: true }
     ).select("-password");
 
@@ -73,9 +73,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { role } = req.body;
 
-    console.log(req.body);
-
-    if (!["super_admin", "coach", "trainee"].includes(role)) {
+    if (!["user", "admin"].includes(role)) {
       return res.status(400).json({ message: "Invalid role" });
     }
 
@@ -95,36 +93,6 @@ export const updateUserRole = async (req: Request, res: Response) => {
       "❌ Error in updateUserRole:",
       JSON.stringify(error, null, 2)
     );
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
-export const addTrainee = async (req: Request, res: Response) => {
-  try {
-    // @ts-ignore
-    if (!["coach", "super_admin"].includes(req.user.role)) {
-      return res.status(403).json({ message: "Unauthorized" });
-    }
-
-    const { name, email, password } = req.body;
-
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const existingUser = await findUserByEmail(email);
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    const newTrainee = new User({ name, email, password, role: "trainee" });
-    await newTrainee.save();
-
-    res
-      .status(201)
-      .json({ message: "Trainee added successfully", user: newTrainee });
-  } catch (error) {
-    console.error("❌ Error in addTrainee:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -7,7 +7,6 @@ import {
   deleteUser,
   getAllUsers,
   updateUserRole,
-  addTrainee,
 } from "../controllers/user.controller";
 
 const router = Router();
@@ -18,25 +17,13 @@ router.patch("/profile", authMiddleware, updateProfile);
 
 router.delete("/:id", authMiddleware, deleteUser);
 
-router.get(
-  "/all",
-  authMiddleware,
-  roleMiddleware(["super_admin"]),
-  getAllUsers
-);
+router.get("/all", authMiddleware, roleMiddleware(["admin"]), getAllUsers);
 
 router.put(
   "/:id/role",
   authMiddleware,
-  roleMiddleware(["super_admin"]),
+  roleMiddleware(["admin"]),
   updateUserRole
-);
-
-router.post(
-  "/add-trainee",
-  authMiddleware,
-  roleMiddleware(["super_admin", "coach"]),
-  addTrainee
 );
 
 export default router;
