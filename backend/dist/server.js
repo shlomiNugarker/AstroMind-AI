@@ -13,7 +13,6 @@ const db_1 = require("./src/database/db");
 const config_1 = require("./src/config");
 const user_routes_1 = __importDefault(require("./src/routes/user.routes"));
 const auth_routes_1 = __importDefault(require("./src/routes/auth.routes"));
-const prediction_routes_1 = __importDefault(require("./src/routes/prediction.routes"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
@@ -32,7 +31,7 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 app.use("/api/auth", auth_routes_1.default);
 app.use("/api/users", user_routes_1.default);
-app.use("/api/predictions", prediction_routes_1.default);
+// app.use("/api/predictions", predictionRoutes);
 app.use(express_1.default.static(path_1.default.join(__dirname, "public")));
 app.get("*", (req, res) => {
     res.sendFile(path_1.default.join(__dirname, "public", "index.html"));

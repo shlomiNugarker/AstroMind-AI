@@ -30,5 +30,7 @@
   "add_coach": "Add Coach",
   "coach_added": "Coach added successfully",
   "unauthorized": "You are not authorized to view this page",
-  "trainee_dashboard": "Trainee Dashboard"
+  "trainee_dashboard": "Trainee Dashboard",
+  "user_management": "User Management",
+  "admin_dashboard": "Admin Dashboard"
 }

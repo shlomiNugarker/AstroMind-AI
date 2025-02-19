@@ -36,7 +36,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/predictions", predictionRoutes);
+// app.use("/api/predictions", predictionRoutes);
 
 app.use(express.static(path.join(__dirname, "public")));
 

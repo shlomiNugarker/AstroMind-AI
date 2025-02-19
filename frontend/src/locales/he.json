@@ -31,5 +31,7 @@
   "add_coach": "הוסף מאמן",
   "coach_added": "המאמן נוסף בהצלחה",
   "unauthorized": "אינך מורשה לצפות בדף זה",
-  "trainee_dashboard": "לוח בקרה של תלמיד"
+  "trainee_dashboard": "לוח בקרה של תלמיד",
+  "user_management": "ניהול משתמשים",
+  "admin_dashboard": "לוח בקרה של מנהל"
 }
