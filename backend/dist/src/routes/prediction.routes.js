@@ -17,7 +17,51 @@ const openai_service_1 = require("../services/openai.service");
 const Prediction_1 = require("../models/Prediction");
 const auth_middleware_1 = require("../middlewares/auth.middleware");
 const predictionService_1 = require("../services/predictionService");
+const ChatMessage_1 = require("../models/ChatMessage");
+const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
+router.post("/chat", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId, message } = req.body;
+    if (!userId || !message) {
+        return res.status(400).json({ error: "User ID and message are required" });
+    }
+    try {
+        const userMessage = yield ChatMessage_1.ChatMessage.create({
+            userId,
+            role: "user",
+            text: message,
+        });
+        const botResponse = yield (0, openai_service_1.generatePrediction)(message);
+        const botMessage = yield ChatMessage_1.ChatMessage.create({
+            userId,
+            role: "bot",
+            text: botResponse,
+        });
+        res.json(botResponse);
+    }
+    catch (error) {
+        console.error("❌ Error handling chat message:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}));
+router.get("/chat/history/:userId", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+    try {
+        const messages = yield ChatMessage_1.ChatMessage.find({
+            userId: new mongodb_1.ObjectId(userId),
+        }).sort({
+            createdAt: 1,
+        });
+        res.json(messages);
+    }
+    catch (error) {
+        console.error("❌ Error fetching chat history:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}));
 router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId, inputData } = req.body;
