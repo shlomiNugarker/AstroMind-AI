@@ -1,28 +1,26 @@
 import { zodiacPredictions } from "../data/zodiacPredictions";
 
-export const getPrediction = (
-  birthdate: string,
-  interests: ("career" | "love" | "health")[]
-) => {
+export const getPrediction = (birthdate: string, lang: "en" | "he" = "en") => {
   const [year, month, day] = birthdate.split("-").map(Number);
   if (!year || !month || !day) {
-    return { error: "פורמט תאריך לא תקין. יש להזין YYYY-MM-DD" };
+    return { error: "Invalid date format. Please use YYYY-MM-DD" };
   }
 
   const zodiac = zodiacPredictions.find((z) => {
+    const [startMonth, startDay] = z.startDate.split("-").map(Number);
+    const [endMonth, endDay] = z.endDate.split("-").map(Number);
+
     return (
-      (month === z.startMonth && day >= z.startDay) ||
-      (month === z.endMonth && day <= z.endDay) ||
-      (month > z.startMonth && month < z.endMonth)
+      (month === startMonth && day >= startDay) ||
+      (month === endMonth && day <= endDay) ||
+      (month > startMonth && month < endMonth)
     );
   });
 
-  if (!zodiac) return { error: "אין מידע זמין למזל זה" };
+  if (!zodiac) return { error: "No available data for this zodiac sign" };
 
-  const predictions = interests.reduce((acc, interest) => {
-    acc[interest] = zodiac[interest] || "אין מידע זמין.";
-    return acc;
-  }, {} as Record<string, string>);
-
-  return { zodiac: zodiac.name, predictions };
+  return {
+    zodiac: zodiac.translations[lang],
+    prediction: zodiac.predictions[lang],
+  };
 };

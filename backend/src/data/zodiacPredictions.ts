@@ -1,146 +1,136 @@
+// Capricorn
+import capricornForecastEn from "./forcasts/en/capricornForecast";
+import capricornForecastHe from "./forcasts/he/capricornForecast";
+// Aquarius
+import aquariusForecastEn from "./forcasts/en/aquariusForecast";
+import aquariusForecastHe from "./forcasts/he/aquariusForecast";
+// Pisces
+import piscesForecastHe from "./forcasts/en/piscesForecast";
+import piscesForecastEn from "./forcasts/en/piscesForecast";
+
+// General
+import generalForecastEn from "./forcasts/en/generalForecast";
+import generalForecastHe from "./forcasts/he/generalForecast";
+
 export const zodiacPredictions = [
   {
-    id: 1, // גדי (Capricorn)
-    name: "Capricorn",
-    hebrew: "גדי",
-    startDay: 22,
-    startMonth: 12,
-    endDay: 19,
-    endMonth: 1,
-    career: "A great time to focus on long-term goals.",
-    love: "Relationships will strengthen.",
-    health: "Balancing work and rest is essential.",
+    id: 1,
+    translations: { en: "Capricorn", he: "גדי" },
+    startDate: "12-22",
+    endDate: "01-19",
+    predictions: {
+      en: capricornForecastEn,
+      he: capricornForecastHe,
+    },
   },
   {
-    id: 2, // דלי (Aquarius)
-    name: "Aquarius",
-    hebrew: "דלי",
-    startDay: 20,
-    startMonth: 1,
-    endDay: 18,
-    endMonth: 2,
-    career: "A significant change is coming, embrace it.",
-    love: "New and unexpected connections ahead.",
-    health: "Consider adding physical activity.",
+    id: 2,
+    translations: { en: "Aquarius", he: "דלי" },
+    startDate: "01-20",
+    endDate: "02-18",
+    predictions: {
+      en: aquariusForecastEn,
+      he: aquariusForecastHe,
+    },
   },
   {
-    id: 3, // דגים (Pisces)
-    name: "Pisces",
-    hebrew: "דגים",
-    startDay: 19,
-    startMonth: 2,
-    endDay: 20,
-    endMonth: 3,
-    career: "Your creativity is flourishing, make use of it.",
-    love: "A good time to strengthen relationships.",
-    health: "Emotional balance and proper rest are needed.",
+    id: 3,
+    translations: { en: "Pisces", he: "דגים" },
+    startDate: "02-19",
+    endDate: "03-20",
+    predictions: {
+      en: piscesForecastEn,
+      he: piscesForecastHe,
+    },
   },
   {
-    id: 4, // טלה (Aries)
-    name: "Aries",
-    hebrew: "טלה",
-    startDay: 21,
-    startMonth: 3,
-    endDay: 19,
-    endMonth: 4,
-    career: "New challenges await you.",
-    love: "A chance for meaningful relationships.",
-    health: "Improve your daily nutrition.",
+    id: 4,
+    translations: { en: "Aries", he: "טלה" },
+    startDate: "03-21",
+    endDate: "04-19",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 5, // שור (Taurus)
-    name: "Taurus",
-    hebrew: "שור",
-    startDay: 20,
-    startMonth: 4,
-    endDay: 20,
-    endMonth: 5,
-    career: "Financial stability comes with persistence.",
-    love: "A great time to build deep connections.",
-    health: "Pay attention to physical health and rest.",
+    id: 5,
+    translations: { en: "Taurus", he: "שור" },
+    startDate: "04-20",
+    endDate: "05-20",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 6, // תאומים (Gemini)
-    name: "Gemini",
-    hebrew: "תאומים",
-    startDay: 21,
-    startMonth: 5,
-    endDay: 21,
-    endMonth: 6,
-    career: "A career change may benefit you.",
-    love: "A time for emotional learning in relationships.",
-    health: "Maintain a balanced diet and healthy lifestyle.",
+    id: 6,
+    translations: { en: "Gemini", he: "תאומים" },
+    startDate: "05-21",
+    endDate: "06-21",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 7, // סרטן (Cancer)
-    name: "Cancer",
-    hebrew: "סרטן",
-    startDay: 22,
-    startMonth: 6,
-    endDay: 22,
-    endMonth: 7,
-    career: "Personal improvement at work will bring success.",
-    love: "A positive period to strengthen family bonds.",
-    health: "Emotional care will positively affect the body.",
+    id: 7,
+    translations: { en: "Cancer", he: "סרטן" },
+    startDate: "06-22",
+    endDate: "07-22",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 8, // אריה (Leo)
-    name: "Leo",
-    hebrew: "אריה",
-    startDay: 23,
-    startMonth: 7,
-    endDay: 22,
-    endMonth: 8,
-    career: "Initiative and innovation will lead to promotions.",
-    love: "Your charisma attracts new romantic connections.",
-    health: "Dedicate time to sports and meditation.",
+    id: 8,
+    translations: { en: "Leo", he: "אריה" },
+    startDate: "07-23",
+    endDate: "08-22",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 9, // בתולה (Virgo)
-    name: "Virgo",
-    hebrew: "בתולה",
-    startDay: 23,
-    startMonth: 8,
-    endDay: 22,
-    endMonth: 9,
-    career: "Your precision and organization will help progress.",
-    love: "A time of emotional stability.",
-    health: "Maintaining a healthy routine will help balance.",
+    id: 9,
+    translations: { en: "Virgo", he: "בתולה" },
+    startDate: "08-23",
+    endDate: "09-22",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 10, // מאזניים (Libra)
-    name: "Libra",
-    hebrew: "מאזניים",
-    startDay: 23,
-    startMonth: 9,
-    endDay: 22,
-    endMonth: 10,
-    career: "Smart financial decisions will bring success.",
-    love: "Relationship harmony is strengthening.",
-    health: "Maintain balance between body and soul.",
+    id: 10,
+    translations: { en: "Libra", he: "מאזניים" },
+    startDate: "09-23",
+    endDate: "10-22",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 11, // עקרב (Scorpio)
-    name: "Scorpio",
-    hebrew: "עקרב",
-    startDay: 23,
-    startMonth: 10,
-    endDay: 21,
-    endMonth: 11,
-    career: "Changes in the workplace will bring new insights.",
-    love: "An intense period for deep emotions.",
-    health: "Improving sleep quality will enhance energy.",
+    id: 11,
+    translations: { en: "Scorpio", he: "עקרב" },
+    startDate: "10-23",
+    endDate: "11-21",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
   {
-    id: 12, // קשת (Sagittarius)
-    name: "Sagittarius",
-    hebrew: "קשת",
-    startDay: 22,
-    startMonth: 11,
-    endDay: 21,
-    endMonth: 12,
-    career: "New opportunities for self-improvement.",
-    love: "Excitement and romance are in the air.",
-    health: "Expanding your knowledge in health is beneficial.",
+    id: 12,
+    translations: { en: "Sagittarius", he: "קשת" },
+    startDate: "11-22",
+    endDate: "12-21",
+    predictions: {
+      en: generalForecastEn,
+      he: generalForecastHe,
+    },
   },
 ];

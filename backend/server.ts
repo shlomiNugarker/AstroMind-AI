@@ -9,6 +9,7 @@ import { config } from "./src/config";
 import userRoutes from "./src/routes/user.routes";
 import authRoutes from "./src/routes/auth.routes";
 import predictionRoutes from "./src/routes/prediction.routes";
+import compression from "compression";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(compression());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

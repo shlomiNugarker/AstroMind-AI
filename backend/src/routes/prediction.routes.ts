@@ -21,43 +21,40 @@ router.post("/", authMiddleware, async (req, res) => {
     }
 
     const predictionText = await generatePrediction(inputData);
-
-    const newPrediction = new Prediction({
+    const newPrediction = await Prediction.create({
       userId,
       inputData,
       predictionText,
       createdAt: new Date(),
     });
 
-    await newPrediction.save();
-
-    res.json({ prediction: predictionText });
+    res.json({ prediction: newPrediction.predictionText });
   } catch (error) {
     console.error("❌ Error in prediction route:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const { birthdate, interests } = req.query;
+    const { birthdate, lang } = req.query;
 
-    if (!birthdate || typeof birthdate !== "string") {
+    if (
+      !birthdate ||
+      typeof birthdate !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(birthdate)
+    ) {
       return res
         .status(400)
-        .json({ error: "Invalid birthdate. Please provide a valid date." });
+        .json({ error: "Invalid birthdate. Please use format YYYY-MM-DD" });
     }
 
-    const interestsArray: ("career" | "love" | "health")[] = interests
-      ? (interests.toString().split(",") as ("career" | "love" | "health")[])
-      : ["career", "love", "health"];
-
-    const prediction = getPrediction(birthdate, interestsArray);
+    const prediction = getPrediction(birthdate, lang as "en" | "he");
 
     return res.json(prediction);
   } catch (error) {
     console.error("❌ Error in prediction route:", error);
-    res.status(500).json({ error });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

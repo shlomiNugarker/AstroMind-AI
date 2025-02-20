@@ -30,37 +30,35 @@ router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 
             return res.json({ prediction: existingPrediction.predictionText });
         }
         const predictionText = yield (0, openai_service_1.generatePrediction)(inputData);
-        const newPrediction = new Prediction_1.Prediction({
+        const newPrediction = yield Prediction_1.Prediction.create({
             userId,
             inputData,
             predictionText,
             createdAt: new Date(),
         });
-        yield newPrediction.save();
-        res.json({ prediction: predictionText });
+        res.json({ prediction: newPrediction.predictionText });
     }
     catch (error) {
         console.error("❌ Error in prediction route:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 }));
-router.get("/", (req, res) => {
+router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { birthdate, interests } = req.query;
-        if (!birthdate || typeof birthdate !== "string") {
+        const { birthdate, lang } = req.query;
+        if (!birthdate ||
+            typeof birthdate !== "string" ||
+            !/^\d{4}-\d{2}-\d{2}$/.test(birthdate)) {
             return res
                 .status(400)
-                .json({ error: "Invalid birthdate. Please provide a valid date." });
+                .json({ error: "Invalid birthdate. Please use format YYYY-MM-DD" });
         }
-        const interestsArray = interests
-            ? interests.toString().split(",")
-            : ["career", "love", "health"];
-        const prediction = (0, predictionService_1.getPrediction)(birthdate, interestsArray);
+        const prediction = (0, predictionService_1.getPrediction)(birthdate, lang);
         return res.json(prediction);
     }
     catch (error) {
         console.error("❌ Error in prediction route:", error);
-        res.status(500).json({ error });
+        res.status(500).json({ error: "Internal Server Error" });
     }
-});
+}));
 exports.default = router;
