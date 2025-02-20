@@ -15,12 +15,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const openai_service_1 = require("../services/openai.service");
 const Prediction_1 = require("../models/Prediction");
+const auth_middleware_1 = require("../middlewares/auth.middleware");
+const predictionService_1 = require("../services/predictionService");
 const router = express_1.default.Router();
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId, inputData } = req.body;
         if (!userId || !inputData) {
             return res.status(400).json({ error: "Missing required fields." });
+        }
+        const existingPrediction = yield Prediction_1.Prediction.findOne({ userId, inputData });
+        if (existingPrediction) {
+            console.log("✅ Using cached prediction.");
+            return res.json({ prediction: existingPrediction.predictionText });
         }
         const predictionText = yield (0, openai_service_1.generatePrediction)(inputData);
         const newPrediction = new Prediction_1.Prediction({
@@ -37,4 +44,23 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }));
+router.get("/", (req, res) => {
+    try {
+        const { birthdate, interests } = req.query;
+        if (!birthdate || typeof birthdate !== "string") {
+            return res
+                .status(400)
+                .json({ error: "יש להזין תאריך לידה תקף (YYYY-MM-DD)" });
+        }
+        const interestsArray = interests
+            ? interests.toString().split(",")
+            : ["career", "love", "health"];
+        const prediction = (0, predictionService_1.getPrediction)(birthdate, interestsArray);
+        return res.json(prediction);
+    }
+    catch (error) {
+        console.error("❌ Error in prediction route:", error);
+        res.status(500).json({ error });
+    }
+});
 exports.default = router;
