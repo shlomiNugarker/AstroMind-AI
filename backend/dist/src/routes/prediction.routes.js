@@ -50,7 +50,7 @@ router.get("/", (req, res) => {
         if (!birthdate || typeof birthdate !== "string") {
             return res
                 .status(400)
-                .json({ error: "יש להזין תאריך לידה תקף (YYYY-MM-DD)" });
+                .json({ error: "Invalid birthdate. Please provide a valid date." });
         }
         const interestsArray = interests
             ? interests.toString().split(",")

@@ -1,17 +1,24 @@
 import { zodiacPredictions } from "../data/zodiacPredictions";
-import { zodiacMap } from "../data/zodiacMap";
 
 export const getPrediction = (
   birthdate: string,
   interests: ("career" | "love" | "health")[]
 ) => {
-  const month = parseInt(birthdate.split("-")[1]);
-  const zodiacId = zodiacMap[month];
+  const [year, month, day] = birthdate.split("-").map(Number);
+  if (!year || !month || !day) {
+    return { error: "פורמט תאריך לא תקין. יש להזין YYYY-MM-DD" };
+  }
 
-  const zodiac = zodiacPredictions.find((z) => z.id === zodiacId);
-  if (!zodiac) return { error: "מזל לא נמצא" };
+  const zodiac = zodiacPredictions.find((z) => {
+    return (
+      (month === z.startMonth && day >= z.startDay) ||
+      (month === z.endMonth && day <= z.endDay) ||
+      (month > z.startMonth && month < z.endMonth)
+    );
+  });
 
-  // שליפת נתונים על פי תחומי העניין
+  if (!zodiac) return { error: "אין מידע זמין למזל זה" };
+
   const predictions = interests.reduce((acc, interest) => {
     acc[interest] = zodiac[interest] || "אין מידע זמין.";
     return acc;
