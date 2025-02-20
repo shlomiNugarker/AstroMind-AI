@@ -55,6 +55,9 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col bg-gray-100 w-full max-w-md rounded-lg shadow-lg">
+      <h1 className="text-center">
+        <span className="text-blue-500">Chat</span> with the Assistant
+      </h1>
       <div className="flex-1 overflow-y-auto p-4 min-h-[500px] max-h-[500px] overflow-auto">
         {messages?.map((msg, index) => (
           <div
