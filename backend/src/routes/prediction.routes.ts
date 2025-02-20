@@ -9,10 +9,12 @@ import { ObjectId } from "mongodb";
 const router = express.Router();
 
 router.post("/chat", authMiddleware, async (req, res) => {
-  const { userId, message } = req.body;
+  const { message } = req.body;
+  // @ts-ignore
+  const userId = req.user?._id;
 
-  if (!userId || !message) {
-    return res.status(400).json({ error: "User ID and message are required" });
+  if (!message) {
+    return res.status(400).json({ error: "Message is required" });
   }
 
   try {
@@ -22,35 +24,31 @@ router.post("/chat", authMiddleware, async (req, res) => {
       text: message,
     });
 
-    const botResponse = await generatePrediction(message);
+    const assistantResponse = await generatePrediction(message);
 
     const botMessage = await ChatMessage.create({
       userId,
-      role: "bot",
-      text: botResponse,
+      role: "assistant",
+      text: assistantResponse,
     });
 
-    res.json(botResponse);
+    res.json(assistantResponse);
   } catch (error) {
     console.error("❌ Error handling chat message:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.get("/chat/history/:userId", authMiddleware, async (req, res) => {
-  const { userId } = req.params;
-
-  if (!userId) {
-    return res.status(400).json({ error: "User ID is required" });
-  }
+router.get("/chat/history", authMiddleware, async (req, res) => {
+  // @ts-ignore
+  const userId = req.user?._id;
 
   try {
     const messages = await ChatMessage.find({
       userId: new ObjectId(userId),
-    }).sort({
-      createdAt: 1,
-    });
-    res.json(messages);
+    }).sort({ createdAt: 1 });
+
+    res.json({ messages });
   } catch (error) {
     console.error("❌ Error fetching chat history:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -59,13 +57,18 @@ router.get("/chat/history/:userId", authMiddleware, async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { userId, inputData } = req.body;
+    const { inputData } = req.body;
+    // @ts-ignore
+    const userId = req.user?._id;
 
-    if (!userId || !inputData) {
+    if (!inputData) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
-    const existingPrediction = await Prediction.findOne({ userId, inputData });
+    const existingPrediction = await Prediction.findOne({
+      userId: new ObjectId(userId),
+      inputData,
+    });
     if (existingPrediction) {
       console.log("✅ Using cached prediction.");
       return res.json({ prediction: existingPrediction.predictionText });

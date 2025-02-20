@@ -11,7 +11,7 @@ const chatMessageSchema = new mongoose_1.default.Schema({
         ref: "User",
         required: true,
     },
-    role: { type: String, enum: ["user", "bot"], required: true },
+    role: { type: String, enum: ["user", "assistant"], required: true },
     text: { type: String, required: true },
 }, { timestamps: true });
 exports.ChatMessage = mongoose_1.default.model("ChatMessage", chatMessageSchema);

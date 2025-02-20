@@ -21,9 +21,12 @@ const ChatMessage_1 = require("../models/ChatMessage");
 const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
 router.post("/chat", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, message } = req.body;
-    if (!userId || !message) {
-        return res.status(400).json({ error: "User ID and message are required" });
+    var _a;
+    const { message } = req.body;
+    // @ts-ignore
+    const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+    if (!message) {
+        return res.status(400).json({ error: "Message is required" });
     }
     try {
         const userMessage = yield ChatMessage_1.ChatMessage.create({
@@ -31,31 +34,28 @@ router.post("/chat", auth_middleware_1.authMiddleware, (req, res) => __awaiter(v
             role: "user",
             text: message,
         });
-        const botResponse = yield (0, openai_service_1.generatePrediction)(message);
+        const assistantResponse = yield (0, openai_service_1.generatePrediction)(message);
         const botMessage = yield ChatMessage_1.ChatMessage.create({
             userId,
-            role: "bot",
-            text: botResponse,
+            role: "assistant",
+            text: assistantResponse,
         });
-        res.json(botResponse);
+        res.json(assistantResponse);
     }
     catch (error) {
         console.error("❌ Error handling chat message:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 }));
-router.get("/chat/history/:userId", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.params;
-    if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-    }
+router.get("/chat/history", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    // @ts-ignore
+    const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b._id;
     try {
         const messages = yield ChatMessage_1.ChatMessage.find({
             userId: new mongodb_1.ObjectId(userId),
-        }).sort({
-            createdAt: 1,
-        });
-        res.json(messages);
+        }).sort({ createdAt: 1 });
+        res.json({ messages });
     }
     catch (error) {
         console.error("❌ Error fetching chat history:", error);
@@ -63,12 +63,18 @@ router.get("/chat/history/:userId", auth_middleware_1.authMiddleware, (req, res)
     }
 }));
 router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _c;
     try {
-        const { userId, inputData } = req.body;
-        if (!userId || !inputData) {
+        const { inputData } = req.body;
+        // @ts-ignore
+        const userId = (_c = req.user) === null || _c === void 0 ? void 0 : _c._id;
+        if (!inputData) {
             return res.status(400).json({ error: "Missing required fields." });
         }
-        const existingPrediction = yield Prediction_1.Prediction.findOne({ userId, inputData });
+        const existingPrediction = yield Prediction_1.Prediction.findOne({
+            userId: new mongodb_1.ObjectId(userId),
+            inputData,
+        });
         if (existingPrediction) {
             console.log("✅ Using cached prediction.");
             return res.json({ prediction: existingPrediction.predictionText });

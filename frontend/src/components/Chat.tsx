@@ -5,9 +5,9 @@ import { useAuth } from "@/context/AuthContext";
 const Chat = () => {
   const userId = useAuth().user?._id;
 
-  const [messages, setMessages] = useState<{ role: string; text: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<
+    { role: string; text: string; updatedAt: Date }[]
+  >([]);
   const [input, setInput] = useState("");
 
   useEffect(() => {
@@ -15,12 +15,11 @@ const Chat = () => {
       if (!userId) return;
       try {
         const response = await httpService.get(
-          `/api/predictions/chat/history/${userId}`,
+          `/api/predictions/chat/history`,
           true
         );
-        console.log(response);
 
-        setMessages(response);
+        setMessages(response.messages);
       } catch (error) {
         console.error("Error fetching chat history:", error);
       }
@@ -32,7 +31,7 @@ const Chat = () => {
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const newMessage = { role: "user", text: input };
+    const newMessage = { role: "user", text: input, updatedAt: new Date() };
     setMessages([...messages, newMessage]);
     setInput("");
 
@@ -40,13 +39,15 @@ const Chat = () => {
       const botResponse = await httpService.post(
         "/api/predictions/chat",
         {
-          userId,
           message: input,
         },
         true
       );
 
-      setMessages((prev) => [...prev, { role: "bot", text: botResponse }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: botResponse, updatedAt: new Date() },
+      ]);
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -55,7 +56,7 @@ const Chat = () => {
   return (
     <div className="flex flex-col bg-gray-100 w-full max-w-md rounded-lg shadow-lg">
       <div className="flex-1 overflow-y-auto p-4 min-h-[500px] max-h-[500px] overflow-auto">
-        {messages.map((msg, index) => (
+        {messages?.map((msg, index) => (
           <div
             key={index}
             className={`mb-2 p-2 rounded-xl max-w-xs ${

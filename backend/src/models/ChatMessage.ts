@@ -7,7 +7,7 @@ const chatMessageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    role: { type: String, enum: ["user", "bot"], required: true },
+    role: { type: String, enum: ["user", "assistant"], required: true },
     text: { type: String, required: true },
   },
   { timestamps: true }
