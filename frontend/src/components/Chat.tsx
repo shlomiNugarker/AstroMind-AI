@@ -43,7 +43,11 @@ const Chat = () => {
 
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", text: botResponse, updatedAt: new Date() },
+        {
+          role: "assistant",
+          text: botResponse?.massege || "Error fetching response",
+          updatedAt: new Date(),
+        },
       ]);
     } catch (error) {
       console.error("Error sending message:", error);

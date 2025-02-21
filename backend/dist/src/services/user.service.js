@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserResetToken = exports.updateUserPassword = exports.findUserByEmail = exports.checkIfUserExists = exports.createUser = exports.deleteUserById = exports.updateUserById = exports.findUserById = exports.findAllUsers = void 0;
+exports.updateRole = exports.updateUserResetToken = exports.updateUserPassword = exports.findUserByEmail = exports.checkIfUserExists = exports.createUser = exports.deleteUserById = exports.updateUserById = exports.findUserById = exports.findAllUsers = void 0;
 const User_1 = require("../models/User");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const findAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -58,3 +58,7 @@ const updateUserResetToken = (id, resetToken, expires) => __awaiter(void 0, void
     });
 });
 exports.updateUserResetToken = updateUserResetToken;
+const updateRole = (id, role) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield User_1.User.findByIdAndUpdate(id, { role }, { new: true }).select("-password");
+});
+exports.updateRole = updateRole;

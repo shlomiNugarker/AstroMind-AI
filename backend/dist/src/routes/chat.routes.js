@@ -32,13 +32,13 @@ router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 
             role: "user",
             text: message,
         });
-        const assistantResponse = yield (0, openai_service_1.generatePrediction)(message);
+        const assistantResponse = yield (0, openai_service_1.generateResponse)(message);
         const botMessage = yield ChatMessage_1.ChatMessage.create({
             userId,
             role: "assistant",
             text: assistantResponse,
         });
-        res.json(assistantResponse);
+        res.json({ massege: assistantResponse });
     }
     catch (error) {
         console.error("❌ Error handling chat message:", error);

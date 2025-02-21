@@ -56,3 +56,9 @@ export const updateUserResetToken = async (
     resetPasswordExpires: expires,
   });
 };
+
+export const updateRole = async (id: string, role: string) => {
+  return await User.findByIdAndUpdate(id, { role }, { new: true }).select(
+    "-password"
+  );
+};

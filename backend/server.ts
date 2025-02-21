@@ -32,7 +32,6 @@ const corsOptions = {
   origin: config.allowedOrigins,
   credentials: true,
 };
-
 app.use(cors(corsOptions));
 app.use(compression());
 

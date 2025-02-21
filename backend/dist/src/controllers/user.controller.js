@@ -10,12 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserRole = exports.getAllUsers = exports.deleteUser = exports.updateProfile = exports.getProfile = void 0;
-const User_1 = require("../models/User");
 const user_service_1 = require("../services/user.service");
 const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // @ts-ignore
-        const user = yield User_1.User.findById(req.userId).select("-password");
+        const user = yield (0, user_service_1.findUserById)(req.userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -32,7 +31,7 @@ const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         // @ts-ignore
         const userId = req.userId;
         const { name, email } = req.body;
-        const updatedUser = yield User_1.User.findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true }).select("-password");
+        const updatedUser = yield (0, user_service_1.updateUserById)(userId, { name, email });
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -62,7 +61,7 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.deleteUser = deleteUser;
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const users = yield User_1.User.find().select("-password");
+        const users = yield (0, user_service_1.findAllUsers)();
         res.json(users);
     }
     catch (error) {
@@ -75,10 +74,10 @@ const updateUserRole = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { id } = req.params;
         const { role } = req.body;
-        if (!["user", "admin"].includes(role)) {
+        if (typeof role !== "string" || !["user", "admin"].includes(role)) {
             return res.status(400).json({ message: "Invalid role" });
         }
-        const updatedUser = yield User_1.User.findByIdAndUpdate(id, { role }, { new: true }).select("-password");
+        const updatedUser = yield (0, user_service_1.updateRole)(id, role);
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }

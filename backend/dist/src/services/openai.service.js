@@ -12,16 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generatePrediction = void 0;
+exports.generateResponse = void 0;
 const openai_1 = __importDefault(require("openai"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const openai = new openai_1.default({
     apiKey: process.env.OPENAI_API_KEY,
 });
-const generatePrediction = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
+const defoultAnswer = "I'm sorry, I don't have an answer for that.";
+const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
+        return defoultAnswer;
         const response = yield openai.chat.completions.create({
             model: "gpt-4o",
             messages: [
@@ -31,13 +33,13 @@ const generatePrediction = (userInput) => __awaiter(void 0, void 0, void 0, func
                 },
             ],
         });
-        const predictionText = ((_b = (_a = response.choices[0]) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.content) ||
+        const lastMassege = ((_b = (_a = response.choices[0]) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.content) ||
             "No response from the assistant.";
-        return predictionText;
+        return lastMassege;
     }
     catch (error) {
-        console.error("❌ Error generating prediction:", error);
-        throw new Error("Failed to generate prediction.");
+        console.error("❌ Error generating answer:", error);
+        throw new Error("Failed to generate answer.");
     }
 });
-exports.generatePrediction = generatePrediction;
+exports.generateResponse = generateResponse;

@@ -1,7 +1,6 @@
 import express from "express";
-import { generatePrediction } from "../services/openai.service";
+import { generateResponse } from "../services/openai.service";
 import { authMiddleware } from "../middlewares/auth.middleware";
-import { getPrediction } from "../services/predictionService";
 import { ChatMessage } from "../models/ChatMessage";
 import { ObjectId } from "mongodb";
 
@@ -23,7 +22,7 @@ router.post("/", authMiddleware, async (req, res) => {
       text: message,
     });
 
-    const assistantResponse = await generatePrediction(message);
+    const assistantResponse = await generateResponse(message);
 
     const botMessage = await ChatMessage.create({
       userId,
@@ -31,7 +30,7 @@ router.post("/", authMiddleware, async (req, res) => {
       text: assistantResponse,
     });
 
-    res.json(assistantResponse);
+    res.json({ massege: assistantResponse });
   } catch (error) {
     console.error("❌ Error handling chat message:", error);
     res.status(500).json({ error: "Internal Server Error" });

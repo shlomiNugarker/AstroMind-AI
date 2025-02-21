@@ -7,8 +7,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-export const generatePrediction = async (userInput: string) => {
+const defoultAnswer = "I'm sorry, I don't have an answer for that.";
+
+export const generateResponse = async (userInput: string) => {
   try {
+    return defoultAnswer;
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
@@ -19,13 +22,13 @@ export const generatePrediction = async (userInput: string) => {
       ],
     });
 
-    const predictionText =
+    const lastMassege =
       response.choices[0]?.message?.content ||
       "No response from the assistant.";
 
-    return predictionText;
+    return lastMassege;
   } catch (error) {
-    console.error("❌ Error generating prediction:", error);
-    throw new Error("Failed to generate prediction.");
+    console.error("❌ Error generating answer:", error);
+    throw new Error("Failed to generate answer.");
   }
 };
