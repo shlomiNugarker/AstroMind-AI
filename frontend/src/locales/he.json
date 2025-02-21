@@ -24,5 +24,8 @@
   "activate": "הפעל",
   "unauthorized": "אינך מורשה לצפות בדף זה",
   "user_management": "ניהול משתמשים",
-  "admin_dashboard": "לוח בקרה של מנהל"
+  "admin_dashboard": "לוח בקרה של מנהל",
+  "with_the_assistant": "עם העוזר",
+  "chat": "צ'אט",
+  "type_your_message_here": "הקלד את ההודעה שלך כאן"
 }

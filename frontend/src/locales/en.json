@@ -25,5 +25,8 @@
   "activate": "Activate",
   "unauthorized": "You are not authorized to view this page",
   "user_management": "User Management",
-  "admin_dashboard": "Admin Dashboard"
+  "admin_dashboard": "Admin Dashboard",
+  "with_the_assistant": "With the assistant",
+  "chat": "Chat",
+  "type_your_message_here": "Type your message here"
 }
