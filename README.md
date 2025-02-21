@@ -132,7 +132,3 @@ npm run dev  # Runs on http://localhost:3000
 
 - The project requires an **OpenAI API key** to function properly.
 - MongoDB must be set up and configured in `.env` file.
-
-
-
-
