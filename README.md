@@ -1,119 +1,139 @@
 # AstroMind-AI
 
-AstroMind-AI is a full-stack web application leveraging AI for astrological insights, user coaching, and interactive chat. It includes a backend built with Node.js (TypeScript) and a frontend powered by React (TypeScript).
+## 📌 Overview
 
-## Features
+AstroMind-AI is a **React + Node.js** application that provides an AI-powered chat experience using **GPT-4o**. The project includes a **full authentication system, user roles, and chat history storage using MongoDB**. The frontend is built with **React (Vite) + Tailwind CSS**, while the backend is implemented in **Express.js with TypeScript**.
 
-- **AI-Powered Astrology Forecasts**: Provides astrological predictions for users.
-- **Chat System**: Interactive chat leveraging AI-based responses.
-- **User Authentication & Authorization**: Secure login, JWT-based authentication.
-- **Coach-Trainee Management**: Supports structured coaching sessions.
-- **Multilingual Support**: UI available in multiple languages (English, Hebrew).
-
-## Tech Stack
-
-- **Backend**: Node.js, Express, PostgreSQL, TypeScript, OpenAI API.
-- **Frontend**: React, Redux, TailwindCSS, Vite.
-
-## Project Structure
+## 📂 Project Structure
 
 ```
 AstroMind-AI/
-│── backend/        # Node.js server with API & authentication
-│   ├── src/
-│   │   ├── controllers/    # API logic
-│   │   ├── middlewares/    # Auth & Role checks
-│   │   ├── models/         # Database models
-│   │   ├── routes/         # API routes
-│   │   ├── services/       # AI & User services
-│   │   ├── utils/          # Helper functions
-│── frontend/       # React UI with Vite & Tailwind
-│   ├── src/
-│   │   ├── components/     # Reusable UI elements
-│   │   ├── pages/          # Application views
-│   │   ├── services/       # API calls
-│   │   ├── context/        # Global state management
-│   │   ├── hooks/          # Custom React hooks
-│── README.md       # Documentation
+│── backend/          # Backend server (Node.js + Express + TypeScript)
+│── frontend/         # Frontend application (React + Vite + Tailwind)
+│── package.json      # Dependencies and scripts
+│── README.md         # Project documentation
 ```
 
-## Installation
+### 🔹 Backend Structure (`backend/`)
 
-### Prerequisites
+```
+backend/
+│── src/
+│   │── controllers/   # Handles API logic (authentication, users, chat)
+│   │── models/        # Mongoose models (User, ChatMessage)
+│   │── routes/        # API endpoints (Auth, User, Chat)
+│   │── services/      # Business logic (OpenAI integration, user services)
+│   │── middlewares/   # Authentication middleware
+│   │── config/        # Environment variables and settings
+│   │── database/      # MongoDB connection
+│── dist/             # Compiled TypeScript files
+│── tsconfig.json     # TypeScript configuration
+```
 
-- Node.js (v18+ recommended)
-- PostgreSQL database
-- OpenAI API key (for AI functionalities)
+### 🔹 Frontend Structure (`frontend/`)
 
-### Backend Setup
+```
+frontend/
+│── src/
+│   │── components/    # UI components (Chat, Layout, ProtectedRoute)
+│   │── context/       # AuthContext (manages user authentication state)
+│   │── pages/         # Application pages (Login, Register, Home, Admin)
+│   │── services/      # API requests (auth, chat, users)
+│   │── styles/        # Tailwind CSS styles
+│   │── main.tsx       # Entry point
+│── package.json      # Dependencies and scripts
+│── vite.config.ts    # Vite configuration
+```
+
+## 🚀 Features
+
+### ✅ Authentication
+
+- User authentication with **JWT tokens**
+- **Login / Register / Logout** functionality
+- **Role-based access control (Admin/User)**
+
+### ✅ AI-Powered Chat
+
+- **GPT-4o** integration for chat responses
+- **Chat history storage** using MongoDB
+- **User-friendly UI with real-time chat experience**
+
+### ✅ User Management
+
+- Profile management
+- Admin dashboard for managing users
+
+### ✅ UI/UX
+
+- Responsive design using **Tailwind CSS**
+- RTL support for **Hebrew and Arabic**
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```sh
+git clone https://github.com/your-repo/AstroMind-AI.git
+cd AstroMind-AI
+```
+
+### 2️⃣ Setup the Backend
 
 ```sh
 cd backend
 npm install
-npm run dev
+cp .env.example .env  # Configure environment variables
+npm run dev            # Start the server
 ```
 
-### Frontend Setup
+### 3️⃣ Setup the Frontend
 
 ```sh
 cd frontend
 npm install
-npm run dev
+npm run dev  # Runs on http://localhost:3000
 ```
 
-## API Endpoints
+## 🔗 API Endpoints
 
-### Authentication
+### 🔹 Authentication Routes (`/api/auth`)
 
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/logout` - Logout user
+| Method | Route       | Description       |
+| ------ | ----------- | ----------------- |
+| POST   | `/login`    | User login        |
+| POST   | `/register` | User registration |
+| GET    | `/me`       | Get current user  |
 
-### User Management
+### 🔹 Chat Routes (`/api/chat`)
 
-- `GET /api/users` - Retrieve all users
-- `GET /api/users/:id` - Get specific user
-- `PUT /api/users/:id` - Update user
-- `DELETE /api/users/:id` - Delete user
+| Method | Route      | Description      |
+| ------ | ---------- | ---------------- |
+| GET    | `/history` | Get chat history |
+| POST   | `/`        | Send message     |
 
-### Chat
+## 📜 Tech Stack
 
-- `POST /chat/`- Process AI-based requests
+### **Backend:**
 
-## Environment Variables
+- **Node.js + Express.js**
+- **MongoDB + Mongoose**
+- **TypeScript**
+- **JWT Authentication**
 
-Create a `.env` file in the backend directory with:
+### **Frontend:**
 
-```env
-DATABASE_URL=your_database_url
-PORT=3030
-JWT_SECRET=your_jwt_secret
-OPENAI_API_KEY=your_openai_key
-```
+- **React + Vite**
+- **Tailwind CSS**
+- **React Router**
+- **Context API**
 
-## Deployment
+## ⚡ Notes
 
-### Backend
+- The project requires an **OpenAI API key** to function properly.
+- MongoDB must be set up and configured in `.env` file.
 
-```sh
-npm run build
-npm start
-```
+## 👨‍💻 Author
 
-### Frontend
 
-```sh
-npm run build
-npm run preview
-```
 
-## Contribution
-
-1. Fork the repo.
-2. Create a feature branch (`feature-xyz`).
-3. Commit your changes.
-4. Push and open a pull request.
-
-## License
-
-This project is licensed under the MIT License.
