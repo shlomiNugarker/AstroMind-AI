@@ -5,7 +5,7 @@
 /* Base styles for the application */
 body {
   font-size: 16px; /* Default font size for body */
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 html[dir="rtl"] {
