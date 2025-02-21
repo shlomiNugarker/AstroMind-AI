@@ -22,7 +22,8 @@ const openai = new openai_1.default({
 const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     if (!process.env.OPENAI_API_KEY) {
-        const defaultResponse = `שגיאה 418: אני קומקום תה ☕\n
+        const defaultResponse = `
+                            שגיאה 418: אני קומקום תה ☕\n
                             נראה שהמפתח שכח לשלם על ה-API, אז במקום תשובה חכמה, קיבלת אותי – קוד קשיח של מתכנת עם ניסיון ויותר מדי קפה.\n
                             👨‍💻 מי אני?\n
                             שלומי, מתכנת פולסטאק עם ניסיון עשיר ב-React, Next.js, Node.js, וכל מה שצריך כדי להפוך רעיון למערכת חיה ובועטת.\n
