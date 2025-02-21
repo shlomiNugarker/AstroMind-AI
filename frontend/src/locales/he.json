@@ -27,5 +27,7 @@
   "admin_dashboard": "לוח בקרה של מנהל",
   "with_the_assistant": "עם העוזר",
   "chat": "צ'אט",
-  "type_your_message_here": "הקלד את ההודעה שלך כאן"
+  "type_your_message_here": "הקלד את ההודעה שלך כאן",
+  "loading": "טוען...",
+  "no_messages": "אין הודעות"
 }

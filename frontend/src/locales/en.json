@@ -28,5 +28,7 @@
   "admin_dashboard": "Admin Dashboard",
   "with_the_assistant": "With the assistant",
   "chat": "Chat",
-  "type_your_message_here": "Type your message here"
+  "type_your_message_here": "Type your message here",
+  "loading": "Loading...",
+  "no_messages": "No messages"
 }
