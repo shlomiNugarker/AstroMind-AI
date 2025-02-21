@@ -12,7 +12,7 @@ const Chat = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      if (!userId) return;
+      if (!userId || messages.length > 0) return;
       try {
         const response = await httpService.get(
           `/api/predictions/chat/history`,
@@ -26,7 +26,7 @@ const Chat = () => {
     };
 
     fetchHistory();
-  }, [userId]);
+  }, [messages.length, userId]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;

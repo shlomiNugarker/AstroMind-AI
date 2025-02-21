@@ -52,9 +52,7 @@ router.get("/chat/history", auth_middleware_1.authMiddleware, (req, res) => __aw
     // @ts-ignore
     const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b._id;
     try {
-        const messages = yield ChatMessage_1.ChatMessage.find({
-            userId: new mongodb_1.ObjectId(userId),
-        }).sort({ createdAt: 1 });
+        const messages = yield ChatMessage_1.ChatMessage.find({ userId: new mongodb_1.ObjectId(userId) }, { _id: 0, updatedAt: 0, __v: 0, userId: 0 }).sort({ createdAt: 1 });
         res.json({ messages });
     }
     catch (error) {

@@ -44,9 +44,10 @@ router.get("/chat/history", authMiddleware, async (req, res) => {
   const userId = req.user?._id;
 
   try {
-    const messages = await ChatMessage.find({
-      userId: new ObjectId(userId),
-    }).sort({ createdAt: 1 });
+    const messages = await ChatMessage.find(
+      { userId: new ObjectId(userId) },
+      { _id: 0, updatedAt: 0, __v: 0, userId: 0 }
+    ).sort({ createdAt: 1 });
 
     res.json({ messages });
   } catch (error) {

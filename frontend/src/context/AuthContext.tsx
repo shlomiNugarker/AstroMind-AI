@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       if (!data.token) {
         throw new Error("Login failed: No token received");
       }
-      console.log("Login successful:", data);
+      // console.log("Login successful:", data);
 
       setToken(data.token);
       setUser(data.user);
