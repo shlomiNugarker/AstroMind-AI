@@ -17,12 +17,14 @@ const openai_1 = __importDefault(require("openai"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const openai = new openai_1.default({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY || "",
 });
 const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    const defaultResponse = "I'm sorry, I don't understand that yet. 😅";
-    return defaultResponse;
+    if (!process.env.OPENAI_API_KEY) {
+        const defaultResponse = "Oops! Looks like my developer forgot to pay for the GPT API again... 😅 If you're reading this, please remind them to check their billing! Meanwhile, let's pretend I responded with something really smart. 🤖✨";
+        return defaultResponse;
+    }
     try {
         const response = yield openai.chat.completions.create({
             model: "gpt-4o",

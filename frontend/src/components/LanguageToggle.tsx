@@ -32,15 +32,15 @@ export const LanguageToggle = ({
           aria-label="Language options"
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-center w-full rounded-lg border border-border bg-background px-2 py-2 text-sm font-medium text-foreground shadow-sm  hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all"
+          className="flex items-center justify-center rounded-md border border-border bg-card px-3 py-2 text-sm font-medium text-foreground shadow hover:bg-muted hover:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all"
         >
-          <span className={`w-6 h-5 flex items-center justify-center`}>
+          <span className="w-6 h-5 flex items-center justify-center">
             <img
               src={
                 languages.find((lang) => lang.code === i18n.language)?.flagUrl
               }
               alt="Flag"
-              className="w-6 h-5 object-cover shadow-sm"
+              className="w-6 h-5 object-cover shadow"
             />
           </span>
           <svg
@@ -63,7 +63,7 @@ export const LanguageToggle = ({
 
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 rounded-lg shadow-lg bg-card ring-1 ring-border transition-all min-w-10"
+          className="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-card ring-1 ring-border min-w-[100px]"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
@@ -77,23 +77,21 @@ export const LanguageToggle = ({
                   changeLanguage(lang.code);
                   setIsOpen(false);
                 }}
-                className={`${
+                className={`flex items-center px-4 py-2 text-sm w-full rounded-md  ${
                   i18n.language === lang.code
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground hover:bg-muted hover:text-muted-foreground"
-                } flex items-center px-4 py-2 text-sm w-full rounded-md transition-all`}
+                }`}
                 role="menuitem"
               >
-                <span className={`w-6 h-5`}>
+                <span className="w-6 h-5">
                   <img
                     src={lang.flagUrl}
                     alt="Flag"
-                    className="w-6 h-5 object-cover shadow-sm"
+                    className="w-6 h-5 object-cover shadow"
                   />
                 </span>
-                <span className={`${isRtl ? "mx-1" : "mx-1"}`}>
-                  {lang.name}
-                </span>
+                <span className="ml-2">{lang.name}</span>
               </button>
             ))}
           </div>

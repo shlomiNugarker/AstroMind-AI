@@ -58,20 +58,17 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 max-h-[80vh] w-full max-w-md rounded-lg shadow-lg">
+    <div className="flex flex-col bg-background max-h-[80vh] w-full md:max-w-md xl:max-w-xl rounded-lg shadow-lg">
       <h1 className="text-center text-2xl font-semibold py-4">
-        <span className="text-blue-500">{t("chat")}</span>{" "}
-        {t("with_the_assistant")}
+        <span className="text-primary">{t("chat")}</span>{" "}
+        <span className="text-foreground">{t("with_the_assistant")}</span>
       </h1>
-      <hr className="my-2" />
+      <hr className="my-2 border-border" />
       <div className="flex-1 overflow-y-auto p-4 flex flex-col-reverse scroll-smooth space-y-2">
         {loading && (
-          <div className="mb-2 p-2 rounded-xl max-w-xs mr-auto bg-gray-300 text-black">
+          <div className="mb-2 p-2 rounded-xl max-w-xs mr-auto bg-secondary text-secondary-foreground shadow-md">
             <div className="flex items-center">
-              <svg
-                className="animate-spin h-5 w-5 mr-2 text-black"
-                viewBox="0 0 24 24"
-              >
+              <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -95,34 +92,32 @@ const Chat = () => {
           .reverse()
           .map((msg, index) => (
             <div
-              dir={isHebrew(msg.text) ? "rtl" : "ltr"}
               key={index}
-              className={`mb-2 p-3 rounded-xl max-w-xs ${
+              dir={isHebrew(msg.text) ? "rtl" : "ltr"}
+              className={`m-3 p-3 rounded-xl  shadow-md flex flex-col ${
                 msg.role === "user"
-                  ? "ml-auto bg-blue-500 text-white"
-                  : "mr-auto bg-gray-300 text-black"
-              } shadow-md`}
+                  ? "ml-auto bg-primary text-primary-foreground"
+                  : "mr-auto bg-secondary text-secondary-foreground"
+              }`}
             >
               {msg.text}
             </div>
           ))}
       </div>
-      <div className="p-4 bg-white shadow-lg flex items-center">
+      <div className="p-4 bg-card shadow-lg flex items-center">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              sendMessage();
-            }
+            if (e.key === "Enter") sendMessage();
           }}
-          className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200"
+          className="flex-1 p-2 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
           placeholder={t("type_your_message_here")}
         />
         <button
           onClick={sendMessage}
-          className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          className="m-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors duration-200"
         >
           {t("send")}
         </button>

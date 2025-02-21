@@ -57,7 +57,7 @@ const Header = () => {
             <li>
               <Link
                 to={item.path}
-                className={`text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white truncate ${
+                className={`text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent hover:text-accent-foreground truncate ${
                   isMobile ? "text-center w-full block" : ""
                 }`}
               >
@@ -71,7 +71,7 @@ const Header = () => {
         <NavigationMenuItem>
           <button
             onClick={logout}
-            className="text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-red-600 hover:text-white"
+            className="text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-destructive hover:text-destructive-foreground"
           >
             {t("logout")}
           </button>
@@ -82,7 +82,7 @@ const Header = () => {
             <li>
               <Link
                 to={item.path}
-                className={`text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white truncate ${
+                className={`text-lg transition-all duration-300 px-4 py-2 rounded-lg hover:bg-accent hover:text-accent-foreground truncate ${
                   isMobile ? "text-center w-full block" : ""
                 }`}
               >
@@ -96,14 +96,14 @@ const Header = () => {
   );
 
   return (
-    <div className="shadow-lg bg-gradient-to-r from-blue-500 to-blue-700 sticky w-full z-10 top-0 backdrop-blur-lg">
-      <header className="container mx-auto z-10 top-0 flex justify-between items-center p-6 text-white">
+    <div className="shadow-lg from-primary to-secondary sticky top-0 w-full z-10 backdrop-blur-lg">
+      <header className="container mx-auto flex justify-between items-center p-6 text-foreground">
         {user && (
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold text-lg">
+            <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center font-bold text-lg text-accent-foreground">
               {user.name.charAt(0).toUpperCase()}
             </div>
-            <span className="text-white font-semibold text-lg truncate">
+            <span className="font-semibold text-lg truncate">
               {t("welcome")}, {user.name}!
             </span>
           </div>
@@ -112,7 +112,7 @@ const Header = () => {
         <button
           aria-label="Menu"
           onClick={toggleMenu}
-          className="md:hidden focus:outline-none text-white"
+          className="md:hidden focus:outline-none text-foreground"
         >
           {isMenuOpen ? (
             <X className="h-8 w-8" />
@@ -129,7 +129,7 @@ const Header = () => {
       </header>
 
       {isMenuOpen && (
-        <div className="top-full left-0 w-full text-white bg-blue-700 md:hidden">
+        <div className="md:hidden text-secondary-foreground">
           <ul className="flex flex-col p-4 items-center justify-center">
             {renderMenuItems(true)}
           </ul>

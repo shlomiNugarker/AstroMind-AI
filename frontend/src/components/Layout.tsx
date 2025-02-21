@@ -9,7 +9,7 @@ const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {!hideHeaderRoutes.includes(location.pathname) && <Header />}
-      <main className="flex-grow">
+      <main className="flex flex-col items-center justify-center flex-1">
         <Outlet />
       </main>
     </div>

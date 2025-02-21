@@ -4,12 +4,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 export const generateResponse = async (userInput: string) => {
-  const defaultResponse = "I'm sorry, I don't understand that yet. 😅";
-  return defaultResponse;
+  if (!process.env.OPENAI_API_KEY) {
+    const defaultResponse =
+      "Oops! Looks like my developer forgot to pay for the GPT API again... 😅 If you're reading this, please remind them to check their billing! Meanwhile, let's pretend I responded with something really smart. 🤖✨";
+    return defaultResponse;
+  }
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
