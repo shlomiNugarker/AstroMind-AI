@@ -15,7 +15,6 @@ const Chat = () => {
       if (!userId || messages.length > 0) return;
       try {
         const response = await httpService.get(`/api/chat/history`, true);
-
         setMessages(response.messages);
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -35,9 +34,7 @@ const Chat = () => {
     try {
       const botResponse = await httpService.post(
         "/api/chat",
-        {
-          message: input,
-        },
+        { message: input },
         true
       );
 
@@ -55,23 +52,27 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gray-100 w-full max-w-md rounded-lg shadow-lg">
+    <div className="flex flex-col bg-gray-100 max-h-[80vh] w-full max-w-md rounded-lg shadow-lg">
       <h1 className="text-center">
         <span className="text-blue-500">Chat</span> with the Assistant
       </h1>
-      <div className="flex-1 overflow-y-auto p-4 overflow-auto">
-        {messages?.map((msg, index) => (
-          <div
-            key={index}
-            className={`mb-2 p-2 rounded-xl max-w-xs ${
-              msg.role === "user"
-                ? "ml-auto bg-blue-500 text-white"
-                : "mr-auto bg-gray-300 text-black"
-            }`}
-          >
-            {msg.text}
-          </div>
-        ))}
+      <hr className="my-2" />
+      <div className="flex-1 overflow-y-auto p-4 flex flex-col-reverse scroll-smooth">
+        {messages
+          .slice()
+          .reverse()
+          .map((msg, index) => (
+            <div
+              key={index}
+              className={`mb-2 p-2 rounded-xl max-w-xs ${
+                msg.role === "user"
+                  ? "ml-auto bg-blue-500 text-white"
+                  : "mr-auto bg-gray-300 text-black"
+              }`}
+            >
+              {msg.text}
+            </div>
+          ))}
       </div>
       <div className="p-4 bg-white shadow-lg flex">
         <input

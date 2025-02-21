@@ -21,6 +21,8 @@ const openai = new openai_1.default({
 });
 const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
+    const defaultResponse = "I'm sorry, I don't understand that yet. 😅";
+    return defaultResponse;
     try {
         const response = yield openai.chat.completions.create({
             model: "gpt-4o",

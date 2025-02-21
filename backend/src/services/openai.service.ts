@@ -8,6 +8,8 @@ const openai = new OpenAI({
 });
 
 export const generateResponse = async (userInput: string) => {
+  const defaultResponse = "I'm sorry, I don't understand that yet. 😅";
+  return defaultResponse;
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
