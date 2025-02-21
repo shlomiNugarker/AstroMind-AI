@@ -30,5 +30,7 @@
   "chat": "Chat",
   "type_your_message_here": "Type your message here",
   "loading": "Loading...",
-  "no_messages": "No messages"
+  "no_messages": "No messages",
+  "have_account": "Already have an account? Login here",
+  "no_account": "Don't have an account? Register here"
 }

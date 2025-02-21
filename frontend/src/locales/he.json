@@ -25,9 +25,11 @@
   "unauthorized": "אינך מורשה לצפות בדף זה",
   "user_management": "ניהול משתמשים",
   "admin_dashboard": "לוח בקרה של מנהל",
-  "with_the_assistant": "עם העוזר",
+  "with_the_assistant": "עם העוזר האישי שלך",
   "chat": "צ'אט",
   "type_your_message_here": "הקלד את ההודעה שלך כאן",
   "loading": "טוען...",
-  "no_messages": "אין הודעות"
+  "no_messages": "אין הודעות",
+  "have_account": "אין לך חשבון? הירשם כאן",
+  "no_account": "אין לך חשבון? הירשם כאן"
 }

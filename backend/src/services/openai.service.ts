@@ -9,8 +9,17 @@ const openai = new OpenAI({
 
 export const generateResponse = async (userInput: string) => {
   if (!process.env.OPENAI_API_KEY) {
-    const defaultResponse =
-      "Oops! Looks like my developer forgot to pay for the GPT API again... 😅 If you're reading this, please remind them to check their billing! Meanwhile, let's pretend I responded with something really smart. 🤖✨";
+    const defaultResponse = `שגיאה 418: אני קומקום תה ☕\n
+                            נראה שהמפתח שכח לשלם על ה-API, אז במקום תשובה חכמה, קיבלת אותי – קוד קשיח של מתכנת עם ניסיון ויותר מדי קפה.\n
+                            👨‍💻 מי אני?\n
+                            שלומי, מתכנת פולסטאק עם ניסיון עשיר ב-React, Next.js, Node.js, וכל מה שצריך כדי להפוך רעיון למערכת חיה ובועטת.\n
+                            אני כותב קוד נקי, חכם, ויעיל, יודע להתמודד עם ארכיטקטורות מורכבות, ומומחה בפתירת באגים מסתוריים שמופיעים רק בייצור (כמובן).\n
+                            🚀 אז למה הצ'אט מרגיש קצת רובוטי?\n
+                            כי כרגע הוא רץ במצב חיסכון, בלי AI אמיתי מאחורי הקלעים. זה כמו אתר שמבקש "נסה שוב מאוחר יותר" בדיוק כשאתה צריך אותו.\n
+                            🤖 רוצה לדבר עם מתכנת אמיתי?\n
+                            אם אתה מחפש מישהו שיבנה לך מערכת יציבה, קוד ברור, ופתרונות חכמים שלא קורסים בדיוק ברגע הלא נכון – בוא נדבר!\n
+                            > "מתכנתים לא עושים טעויות – זה פשוט באג שמחכה להפוך לפיצ'ר."\n
+                            `;
     return defaultResponse;
   }
   try {

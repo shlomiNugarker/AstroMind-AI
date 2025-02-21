@@ -48,21 +48,6 @@ export default {
           5: "hsl(var(--chart-5))", // Color for the fifth chart series
         },
       },
-      fontFamily: {
-        sans: [
-          "Inter", // Default sans-serif font for modern designs
-          "Arial",
-          "sans-serif",
-        ],
-        serif: [
-          "Georgia", // Serif font for formal or traditional designs
-          "serif",
-        ],
-        mono: [
-          "Courier New", // Monospace font for coding or technical text
-          "monospace",
-        ],
-      },
       screens: {
         xs: "480px", // Extra small screens
         sm: "640px", // Small screens (e.g., phones)

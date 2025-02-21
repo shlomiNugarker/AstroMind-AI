@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { FaLock, FaEnvelope } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("test@example.com");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const { t } = useTranslation();
   const { login } = useAuth();
@@ -26,49 +27,67 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-4">{t("login_page")}</h2>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+    <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
+      <div className="p-6 bg-card shadow-lg rounded-xl w-full max-w-sm animate-fade-in border border-border">
+        <h2 className="text-2xl font-bold text-center mb-4">
+          {t("login_page")}
+        </h2>
+
+        {error && (
+          <p className="text-red-500 text-sm mb-3 text-center">{error}</p>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-foreground">
               {t("email")}
             </label>
-            <input
-              dir="ltr"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
+            <div className="relative">
+              <FaEnvelope className="absolute left-3 top-3 text-muted-foreground" />
+              <input
+                dir="ltr"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 p-2 pl-10 w-full bg-input border border-border rounded-md focus:ring-2 focus:ring-primary transition"
+                required
+              />
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
+          <div>
+            <label className="block text-sm font-medium text-foreground">
               {t("password")}
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 w-full border rounded-md"
-              required
-            />
+            <div className="relative">
+              <FaLock className="absolute left-3 top-3 text-muted-foreground" />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 p-2 pl-10 w-full bg-input border border-border rounded-md focus:ring-2 focus:ring-primary transition"
+                required
+              />
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+            className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground py-2 rounded-md hover:bg-primary/90 transition font-medium shadow-md"
           >
             {t("login")}
           </button>
         </form>
-        <div className="mt-4 text-center flex flex-col">
-          <Link to={"/register"} className="m-1 text-center">
-            {t("register")}?
-          </Link>
+
+        <div className="mt-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            <Link
+              to="/register"
+              className="text-primary font-semibold hover:underline"
+            >
+              {t("no_account")}
+            </Link>
+          </p>
         </div>
       </div>
     </div>
