@@ -59,7 +59,7 @@ const Chat = () => {
       <h1 className="text-center">
         <span className="text-blue-500">Chat</span> with the Assistant
       </h1>
-      <div className="flex-1 overflow-y-auto p-4 min-h-[70vh] max-h-[70vh] overflow-auto">
+      <div className="flex-1 overflow-y-auto p-4 overflow-auto">
         {messages?.map((msg, index) => (
           <div
             key={index}
