@@ -30,7 +30,7 @@ router.post("/", authMiddleware, async (req, res) => {
       text: assistantResponse,
     });
 
-    res.json({ massege: assistantResponse });
+    res.json({ message: assistantResponse });
   } catch (error) {
     console.error("❌ Error handling chat message:", error);
     res.status(500).json({ error: "Internal Server Error" });

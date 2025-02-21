@@ -38,7 +38,7 @@ router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 
             role: "assistant",
             text: assistantResponse,
         });
-        res.json({ massege: assistantResponse });
+        res.json({ message: assistantResponse });
     }
     catch (error) {
         console.error("❌ Error handling chat message:", error);
