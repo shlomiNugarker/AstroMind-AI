@@ -24,8 +24,11 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
 
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
+
+        <Route element={<ProtectedRoute allowedRoles={["admin", "user"]} />}>
+          <Route path="/" element={<Home />} />
+        </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
           <Route path="/admin/users" element={<AdminUsers />} />

@@ -19,11 +19,9 @@ dotenv_1.default.config();
 const openai = new openai_1.default({
     apiKey: process.env.OPENAI_API_KEY,
 });
-const defoultAnswer = "I'm sorry, I don't have an answer for that.";
 const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
-        return defoultAnswer;
         const response = yield openai.chat.completions.create({
             model: "gpt-4o",
             messages: [

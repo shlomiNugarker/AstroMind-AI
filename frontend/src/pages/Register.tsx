@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { Link } from "react-router";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -78,6 +79,11 @@ const Register: React.FC = () => {
             {t("register")}
           </button>
         </form>
+        <div className="mt-4 text-center flex flex-col">
+          <Link to={"/login"} className="m-1 text-center">
+            {t("login")}?
+          </Link>{" "}
+        </div>
       </div>
     </div>
   );

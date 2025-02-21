@@ -7,11 +7,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const defoultAnswer = "I'm sorry, I don't have an answer for that.";
-
 export const generateResponse = async (userInput: string) => {
   try {
-    return defoultAnswer;
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
