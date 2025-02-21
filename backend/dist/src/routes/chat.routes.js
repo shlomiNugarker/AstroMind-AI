@@ -15,11 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const openai_service_1 = require("../services/openai.service");
 const auth_middleware_1 = require("../middlewares/auth.middleware");
-const predictionService_1 = require("../services/predictionService");
 const ChatMessage_1 = require("../models/ChatMessage");
 const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
-router.post("/chat", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { message } = req.body;
     // @ts-ignore
@@ -46,7 +45,7 @@ router.post("/chat", auth_middleware_1.authMiddleware, (req, res) => __awaiter(v
         res.status(500).json({ error: "Internal Server Error" });
     }
 }));
-router.get("/chat/history", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/history", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     // @ts-ignore
     const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b._id;
@@ -56,55 +55,6 @@ router.get("/chat/history", auth_middleware_1.authMiddleware, (req, res) => __aw
     }
     catch (error) {
         console.error("❌ Error fetching chat history:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}));
-router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
-    try {
-        const { inputData } = req.body;
-        // @ts-ignore
-        const userId = (_c = req.user) === null || _c === void 0 ? void 0 : _c._id;
-        if (!inputData) {
-            return res.status(400).json({ error: "Missing required fields." });
-        }
-        const existingPrediction = yield Prediction.findOne({
-            userId: new mongodb_1.ObjectId(userId),
-            inputData,
-        });
-        if (existingPrediction) {
-            console.log("✅ Using cached prediction.");
-            return res.json({ prediction: existingPrediction.predictionText });
-        }
-        const predictionText = yield (0, openai_service_1.generatePrediction)(inputData);
-        const newPrediction = yield Prediction.create({
-            userId,
-            inputData,
-            predictionText,
-            createdAt: new Date(),
-        });
-        res.json({ prediction: newPrediction.predictionText });
-    }
-    catch (error) {
-        console.error("❌ Error in prediction route:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-}));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { birthdate, lang } = req.query;
-        if (!birthdate ||
-            typeof birthdate !== "string" ||
-            !/^\d{4}-\d{2}-\d{2}$/.test(birthdate)) {
-            return res
-                .status(400)
-                .json({ error: "Invalid birthdate. Please use format YYYY-MM-DD" });
-        }
-        const prediction = (0, predictionService_1.getPrediction)(birthdate, lang);
-        return res.json(prediction);
-    }
-    catch (error) {
-        console.error("❌ Error in prediction route:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 }));

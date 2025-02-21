@@ -14,10 +14,7 @@ const Chat = () => {
     const fetchHistory = async () => {
       if (!userId || messages.length > 0) return;
       try {
-        const response = await httpService.get(
-          `/api/predictions/chat/history`,
-          true
-        );
+        const response = await httpService.get(`/api/chat/history`, true);
 
         setMessages(response.messages);
       } catch (error) {
@@ -37,7 +34,7 @@ const Chat = () => {
 
     try {
       const botResponse = await httpService.post(
-        "/api/predictions/chat",
+        "/api/chat",
         {
           message: input,
         },
@@ -58,7 +55,7 @@ const Chat = () => {
       <h1 className="text-center">
         <span className="text-blue-500">Chat</span> with the Assistant
       </h1>
-      <div className="flex-1 overflow-y-auto p-4 min-h-[500px] max-h-[500px] overflow-auto">
+      <div className="flex-1 overflow-y-auto p-4 min-h-[70vh] max-h-[70vh] overflow-auto">
         {messages?.map((msg, index) => (
           <div
             key={index}

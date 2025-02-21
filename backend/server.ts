@@ -8,7 +8,7 @@ import { connectDB } from "./src/database/db";
 import { config } from "./src/config";
 import userRoutes from "./src/routes/user.routes";
 import authRoutes from "./src/routes/auth.routes";
-import predictionRoutes from "./src/routes/prediction.routes";
+import chatRoutes from "./src/routes/chat.routes";
 import compression from "compression";
 
 dotenv.config();
@@ -38,7 +38,7 @@ app.use(compression());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/predictions", predictionRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(express.static(path.join(__dirname, "public")));
 
