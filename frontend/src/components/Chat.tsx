@@ -14,7 +14,6 @@ const Chat = () => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  // טעינת היסטוריית הצ'אט פעם אחת בלבד
   useEffect(() => {
     const fetchHistory = async () => {
       if (!userId || messages.length > 0) return;
@@ -27,9 +26,8 @@ const Chat = () => {
     };
 
     fetchHistory();
-  }, [userId]);
+  }, [messages.length, userId]);
 
-  // גלילה אוטומטית
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -61,7 +59,6 @@ const Chat = () => {
     }
   };
 
-  // שליחת הודעה גם בלחיצה על Enter
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       sendMessage();
@@ -70,7 +67,6 @@ const Chat = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto p-4 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      {/* אזור הודעות */}
       <div className="h-96 overflow-y-auto p-3 space-y-4">
         {messages.map((msg, index) => (
           <MessageBubble key={index} msg={msg} />
@@ -78,7 +74,6 @@ const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* מצב טעינה */}
       {loading && (
         <div className="flex justify-center items-center text-gray-500 mt-2">
           <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
@@ -86,7 +81,6 @@ const Chat = () => {
         </div>
       )}
 
-      {/* אזור קלט */}
       <div className="flex items-center gap-2 mt-3 bg-gray-100 p-2 rounded-lg">
         <input
           type="text"
@@ -108,7 +102,6 @@ const Chat = () => {
   );
 };
 
-// הודעה בודדת עם עיצוב משופר
 const MessageBubble = memo(
   ({ msg }: { msg: { role: string; text: string } }) => {
     const isUser = msg.role === "user";
