@@ -29,10 +29,10 @@ async function request(
       options.body = JSON.stringify(data);
     }
 
-    console.log(
-      `🟢 Sending ${method} request to ${BASE_URL + endpoint}`,
-      options
-    );
+    // console.log(
+    //   `🟢 Sending ${method} request to ${BASE_URL + endpoint}`,
+    //   options
+    // );
 
     const res = await fetch(BASE_URL + endpoint, options);
     if (!res.ok) {
