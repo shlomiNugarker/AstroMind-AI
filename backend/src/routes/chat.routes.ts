@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { generateResponse } from "../services/openai.service";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { ChatMessage } from "../models/ChatMessage";
@@ -6,40 +6,35 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
-router.post("/", authMiddleware, async (req, res) => {
+if (!process.env.OPENAI_API_KEY) {
+  console.warn("⚠️ OPENAI_API_KEY is missing. The chatbot will not function.");
+}
+
+router.post("/", authMiddleware, async (req: Request, res: Response) => {
   if (!process.env.OPENAI_API_KEY) {
-    const defaultResponse = `
-                  נראה שהמוח של הבינה המלאכותית לוקח הפסקה קצרה... 🧠💤
-                  כרגע אין קרדיטים זמינים ב-API, ולכן העוזר החכם שלנו לא פעיל. אבל אל דאגה – זה זמני בלבד!
-
-                  💡 מה אפשר לעשות בינתיים?
-                  ✅ לחקור את שאר המערכת ולהתרשם מהיכולות שלנו
-                  ✅ לבדוק שוב מאוחר יותר – הבוט יחזור לפעול בקרוב
-                  ✅ להשאיר לנו הודעה ואנחנו נחזור אליך עם תשובה
-
-                  אנחנו עובדים כדי להבטיח חוויית משתמש חלקה ואינטראקטיבית, אז תודה על הסבלנות! 🙏
-                            `;
-
-    return res.json({ message: defaultResponse });
+    return res.json({
+      message: `נראה שהמוח של הבינה המלאכותית לוקח הפסקה קצרה... 🧠💤\nכרגע אין קרדיטים זמינים ב-API.`,
+    });
   }
-  const { message } = req.body;
+
+  const { message }: { message: string } = req.body;
   // @ts-ignore
-  const userId = req.user?._id;
+  const userId = req.user?._id as string | undefined;
+
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   if (!message) {
     return res.status(400).json({ error: "Message is required" });
   }
 
   try {
-    const userMessage = await ChatMessage.create({
-      userId,
-      role: "user",
-      text: message,
-    });
+    await ChatMessage.create({ userId, role: "user", text: message });
 
     const assistantResponse = await generateResponse(message);
 
-    const botMessage = await ChatMessage.create({
+    await ChatMessage.create({
       userId,
       role: "assistant",
       text: assistantResponse,
@@ -48,13 +43,19 @@ router.post("/", authMiddleware, async (req, res) => {
     res.json({ message: assistantResponse });
   } catch (error) {
     console.error("❌ Error handling chat message:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({
+      error: error instanceof Error ? error.message : "Internal Server Error",
+    });
   }
 });
 
-router.get("/history", authMiddleware, async (req, res) => {
+router.get("/history", authMiddleware, async (req: Request, res: Response) => {
   // @ts-ignore
-  const userId = req.user?._id;
+  const userId = req.user?._id as string | undefined;
+
+  if (!userId) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   try {
     const messages = await ChatMessage.find(

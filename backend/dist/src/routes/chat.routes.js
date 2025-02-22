@@ -18,36 +18,29 @@ const auth_middleware_1 = require("../middlewares/auth.middleware");
 const ChatMessage_1 = require("../models/ChatMessage");
 const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
+if (!process.env.OPENAI_API_KEY) {
+    console.warn("⚠️ OPENAI_API_KEY is missing. The chatbot will not function.");
+}
 router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     if (!process.env.OPENAI_API_KEY) {
-        const defaultResponse = `
-                  נראה שהמוח של הבינה המלאכותית לוקח הפסקה קצרה... 🧠💤
-                  כרגע אין קרדיטים זמינים ב-API, ולכן העוזר החכם שלנו לא פעיל. אבל אל דאגה – זה זמני בלבד!
-
-                  💡 מה אפשר לעשות בינתיים?
-                  ✅ לחקור את שאר המערכת ולהתרשם מהיכולות שלנו
-                  ✅ לבדוק שוב מאוחר יותר – הבוט יחזור לפעול בקרוב
-                  ✅ להשאיר לנו הודעה ואנחנו נחזור אליך עם תשובה
-
-                  אנחנו עובדים כדי להבטיח חוויית משתמש חלקה ואינטראקטיבית, אז תודה על הסבלנות! 🙏
-                            `;
-        return res.json({ message: defaultResponse });
+        return res.json({
+            message: `נראה שהמוח של הבינה המלאכותית לוקח הפסקה קצרה... 🧠💤\nכרגע אין קרדיטים זמינים ב-API.`,
+        });
     }
     const { message } = req.body;
     // @ts-ignore
     const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;
+    if (!userId) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
     if (!message) {
         return res.status(400).json({ error: "Message is required" });
     }
     try {
-        const userMessage = yield ChatMessage_1.ChatMessage.create({
-            userId,
-            role: "user",
-            text: message,
-        });
+        yield ChatMessage_1.ChatMessage.create({ userId, role: "user", text: message });
         const assistantResponse = yield (0, openai_service_1.generateResponse)(message);
-        const botMessage = yield ChatMessage_1.ChatMessage.create({
+        yield ChatMessage_1.ChatMessage.create({
             userId,
             role: "assistant",
             text: assistantResponse,
@@ -56,13 +49,18 @@ router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 
     }
     catch (error) {
         console.error("❌ Error handling chat message:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({
+            error: error instanceof Error ? error.message : "Internal Server Error",
+        });
     }
 }));
 router.get("/history", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     // @ts-ignore
     const userId = (_b = req.user) === null || _b === void 0 ? void 0 : _b._id;
+    if (!userId) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
     try {
         const messages = yield ChatMessage_1.ChatMessage.find({ userId: new mongodb_1.ObjectId(userId) }, { _id: 0, updatedAt: 0, __v: 0, userId: 0 }).sort({ createdAt: 1 });
         res.json({ messages });
