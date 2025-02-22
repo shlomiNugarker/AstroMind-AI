@@ -7,8 +7,8 @@ import { FaLock, FaEnvelope } from "react-icons/fa";
 import Logo from "@/components/Logo";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@example.com	");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const { t } = useTranslation();
   const { login } = useAuth();

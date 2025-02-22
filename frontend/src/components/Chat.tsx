@@ -108,7 +108,7 @@ const Chat = () => {
         />
         <button
           onClick={sendMessage}
-          className="m-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center"
+          className="m-2 px-4 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center"
         >
           <FaPaperPlane className="animate-pulse" />
         </button>

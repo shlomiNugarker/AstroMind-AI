@@ -1,10 +1,10 @@
 {
   "home_page": "Home page",
   "home_welcome": "Welcome to our home page",
-  "login_page": "Login page",
+  "login_page": "Login",
   "password": "Password",
   "email": "Email",
-  "register_page": "Register page",
+  "register_page": "Register",
   "welcome": "Welcome",
   "coach_dashboard": "Coach Dashboard",
   "logout": "Logout",
