@@ -100,14 +100,10 @@ const Header = () => {
       <header className="container mx-auto flex justify-between items-center p-6 text-foreground">
         {user && (
           <div className="flex items-center gap-3">
-            {/* <div className="flex items-center justify-center">
-              <Logo className="h-[80px]" />
-            </div> */}
-
             <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center font-bold text-lg text-accent-foreground">
               {user.name.charAt(0).toUpperCase()}
             </div>
-            <span className="font-semibold text-lg truncate">
+            <span className="font-semibold text-lg">
               {t("welcome")}, {user.name}!
             </span>
           </div>

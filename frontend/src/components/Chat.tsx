@@ -72,7 +72,6 @@ const Chat = () => {
 
       <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center">
         <span className="text-primary">{t("chat")}</span>{" "}
-        <span className="text-foreground">{t("with_the_assistant")}</span>
       </h1>
       <hr className="my-2 border-border" />
 
