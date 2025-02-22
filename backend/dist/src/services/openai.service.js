@@ -22,12 +22,13 @@ const openai = new openai_1.default({
 });
 const generateResponse = (userInput, lang) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
+    // אם אין מפתח API, נחזיר תשובה מוכנה מראש
     if (!process.env.OPENAI_API_KEY) {
-        return responses_1.responses[lang][Math.floor(Math.random() * responses_1.responses.en.length)];
+        return responses_1.responses[lang][Math.floor(Math.random() * responses_1.responses[lang].length)];
     }
     try {
         const response = yield openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4-turbo",
             messages: [
                 {
                     role: "system",
@@ -41,15 +42,18 @@ const generateResponse = (userInput, lang) => __awaiter(void 0, void 0, void 0, 
                     content: userInput,
                 },
             ],
-            max_tokens: 150,
-            temperature: 0.7, // שומר על איזון בין יצירתיות לרלוונטיות
+            max_tokens: 200,
+            temperature: 0.6,
+            top_p: 0.9,
+            frequency_penalty: 0.2,
+            presence_penalty: 0.2, // מעודד גיוון בתשובות
         });
         return (((_b = (_a = response.choices[0]) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.content) ||
             "I'm here to assist with astrology and coaching!");
     }
     catch (error) {
         console.error("❌ Error generating answer:", error);
-        throw new Error("Failed to generate answer.");
+        return "⚠️ Oops! Something went wrong. Try again later.";
     }
 });
 exports.generateResponse = generateResponse;

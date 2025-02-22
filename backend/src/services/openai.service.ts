@@ -12,12 +12,14 @@ export const generateResponse = async (
   userInput: string,
   lang: "en" | "he"
 ) => {
+  // אם אין מפתח API, נחזיר תשובה מוכנה מראש
   if (!process.env.OPENAI_API_KEY) {
-    return responses[lang][Math.floor(Math.random() * responses.en.length)];
+    return responses[lang][Math.floor(Math.random() * responses[lang].length)];
   }
+
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-turbo", // שימוש במודל החכם ביותר
       messages: [
         {
           role: "system",
@@ -31,8 +33,11 @@ export const generateResponse = async (
           content: userInput,
         },
       ],
-      max_tokens: 150, // מגביל את האורך של התגובה כדי לחסוך טוקנים
-      temperature: 0.7, // שומר על איזון בין יצירתיות לרלוונטיות
+      max_tokens: 200, // מרחיבים מעט את אורך התגובה
+      temperature: 0.6, // תגובות מאוזנות ומדויקות יותר
+      top_p: 0.9, // שליטה בהסתברויות המילים (למענה חכם יותר)
+      frequency_penalty: 0.2, // מונע חזרות על מידע
+      presence_penalty: 0.2, // מעודד גיוון בתשובות
     });
 
     return (
@@ -41,6 +46,6 @@ export const generateResponse = async (
     );
   } catch (error) {
     console.error("❌ Error generating answer:", error);
-    throw new Error("Failed to generate answer.");
+    return "⚠️ Oops! Something went wrong. Try again later.";
   }
 };
