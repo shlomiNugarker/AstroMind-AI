@@ -85,7 +85,7 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
 
     await ChatMessage.create({
       userId,
-      role: "assistant",
+      role: "system",
       text: assistantResponse,
     });
 

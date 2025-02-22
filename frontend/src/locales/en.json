@@ -32,5 +32,6 @@
   "loading": "Loading...",
   "no_messages": "No messages",
   "have_account": "Already have an account? Login here",
-  "no_account": "Don't have an account? Register here"
+  "no_account": "Don't have an account? Register here",
+  "built_with_love_by_Shlomi": "Built with ❤️ by Shlomi"
 }

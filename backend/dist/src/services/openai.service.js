@@ -26,14 +26,22 @@ const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, functi
             model: "gpt-3.5-turbo",
             messages: [
                 {
+                    role: "system",
+                    content: `You are AstroMind-AI, an expert AI assistant for astrology and personal coaching.
+          You provide astrological insights, daily horoscopes, and practical coaching advice.
+          Stay concise and direct. Do NOT answer unrelated questions. If a question is off-topic, respond with:
+          "I specialize in astrology and coaching. Let me know how I can help in these areas!"`,
+                },
+                {
                     role: "user",
                     content: userInput,
                 },
             ],
+            max_tokens: 150,
+            temperature: 0.7, // שומר על איזון בין יצירתיות לרלוונטיות
         });
-        const lastMassege = ((_b = (_a = response.choices[0]) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.content) ||
-            "No response from the assistant.";
-        return lastMassege;
+        return (((_b = (_a = response.choices[0]) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.content) ||
+            "I'm here to assist with astrology and coaching!");
     }
     catch (error) {
         console.error("❌ Error generating answer:", error);

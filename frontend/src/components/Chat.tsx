@@ -7,6 +7,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import i18n from "@/i18n";
 import Logo from "./Logo";
+import { Link } from "react-router";
 
 const Chat = () => {
   const userId = useAuth().user?._id;
@@ -64,12 +65,12 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-background h-[60vh] sm:h-[80vh] w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border">
+    <div className="flex flex-col bg-background h-full w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
       <div className="flex items-center justify-center">
         <Logo className="h-[130px]" />
       </div>
 
-      <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center truncate">
+      <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center">
         <span className="text-primary">{t("chat")}</span>{" "}
         <span className="text-foreground">{t("with_the_assistant")}</span>
       </h1>
@@ -100,7 +101,7 @@ const Chat = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          className="flex-1 p-2 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
+          className="flex-1 p-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
           placeholder={t("type_your_message_here")}
         />
         <button
@@ -109,6 +110,15 @@ const Chat = () => {
         >
           <FaPaperPlane className="animate-pulse" />
         </button>
+      </div>
+      <div className="text-muted-foreground text-center p-2">
+        <Link
+          className="underline"
+          to={"https://shlomi-nugarker.vercel.app/"}
+          target="_blank"
+        >
+          {t("built_with_love_by_Shlomi")}
+        </Link>
       </div>
     </div>
   );
