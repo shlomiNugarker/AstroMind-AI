@@ -15,12 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateResponse = void 0;
 const openai_1 = __importDefault(require("openai"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const responses_1 = require("../../data/responses");
 dotenv_1.default.config();
 const openai = new openai_1.default({
     apiKey: process.env.OPENAI_API_KEY || "",
 });
-const generateResponse = (userInput) => __awaiter(void 0, void 0, void 0, function* () {
+const generateResponse = (userInput, lang) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
+    if (!process.env.OPENAI_API_KEY) {
+        return responses_1.responses[lang][Math.floor(Math.random() * responses_1.responses.en.length)];
+    }
     try {
         const response = yield openai.chat.completions.create({
             model: "gpt-3.5-turbo",

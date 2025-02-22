@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import { responses } from "../../data/responses";
 
 dotenv.config();
 
@@ -7,7 +8,13 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });
 
-export const generateResponse = async (userInput: string) => {
+export const generateResponse = async (
+  userInput: string,
+  lang: "en" | "he"
+) => {
+  if (!process.env.OPENAI_API_KEY) {
+    return responses[lang][Math.floor(Math.random() * responses.en.length)];
+  }
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
