@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FaLock, FaEnvelope } from "react-icons/fa";
+import Logo from "@/components/Logo";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("test@example.com");
@@ -29,6 +30,9 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
       <div className="p-6 bg-card shadow-lg rounded-xl w-full max-w-sm animate-fade-in border border-border">
+        <div className="flex items-center justify-center">
+          <Logo />
+        </div>
         <h2 className="text-2xl font-bold text-center mb-4">
           {t("login_page")}
         </h2>

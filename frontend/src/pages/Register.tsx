@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import Logo from "@/components/Logo";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -36,6 +37,9 @@ const Register: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background text-foreground">
       <div className="w-full max-w-md bg-card p-6 rounded-lg shadow-lg border border-border animate-fade-in">
+        <div className="flex items-center justify-center">
+          <Logo />
+        </div>
         <h2 className="text-2xl font-bold text-center mb-4">
           {t("register_page")}
         </h2>
