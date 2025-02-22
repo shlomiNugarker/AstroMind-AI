@@ -5,6 +5,8 @@ import { t } from "i18next";
 import { isHebrew } from "@/services/utils";
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import i18n from "@/i18n";
+import Logo from "./Logo";
 
 const Chat = () => {
   const userId = useAuth().user?._id;
@@ -14,6 +16,8 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  const userLang = i18n.language;
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -43,7 +47,7 @@ const Chat = () => {
     try {
       const botResponse = await httpService.post(
         "/api/chat",
-        { message: input },
+        { message: input, lang: userLang || "en" },
         true
       );
       const botMessage = {
@@ -60,8 +64,12 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-background max-h-[80vh] w-full md:max-w-md xl:max-w-xl rounded-lg shadow-lg border border-border">
-      <h1 className="text-center text-2xl font-semibold py-4">
+    <div className="flex flex-col bg-background h-[60vh] sm:h-[80vh] w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border">
+      <div className="flex items-center justify-center">
+        <Logo className="h-[130px]" />
+      </div>
+
+      <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center truncate">
         <span className="text-primary">{t("chat")}</span>{" "}
         <span className="text-foreground">{t("with_the_assistant")}</span>
       </h1>
@@ -71,6 +79,11 @@ const Chat = () => {
         {messages.map((msg, index) => (
           <MessageBubble key={index} msg={msg} />
         ))}
+        {messages.length === 0 && (
+          <div className="text-muted-foreground text-center">
+            {t("no_messages")}
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
 
