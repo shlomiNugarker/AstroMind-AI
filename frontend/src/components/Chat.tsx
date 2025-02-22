@@ -65,7 +65,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-background max-h-[calc(100vh-150px)] h-full w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
+    <div className="flex flex-col bg-background h-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
       <div className="flex items-center justify-center">
         <Logo className="h-[130px]" />
       </div>
@@ -75,7 +75,7 @@ const Chat = () => {
       </h1>
       <hr className="my-2 border-border" />
 
-      <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-2 min-h-[300px]">
+      <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-2">
         {messages.map((msg, index) => (
           <MessageBubble key={index} msg={msg} />
         ))}
