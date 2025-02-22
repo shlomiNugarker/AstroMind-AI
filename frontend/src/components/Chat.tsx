@@ -88,7 +88,7 @@ const Chat = () => {
       </div>
 
       <div
-        className={`flex justify-center items-center text-muted-foreground mt-2 ${
+        className={`flex justify-center fixed items-center text-muted-foreground mt-2 ${
           loading ? "opacity-100" : "opacity-0"
         }`}
       >
