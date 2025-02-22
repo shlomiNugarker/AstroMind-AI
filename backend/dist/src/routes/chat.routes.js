@@ -20,6 +20,20 @@ const mongodb_1 = require("mongodb");
 const router = express_1.default.Router();
 router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
+    if (!process.env.OPENAI_API_KEY) {
+        const defaultResponse = `
+                  נראה שהמוח של הבינה המלאכותית לוקח הפסקה קצרה... 🧠💤
+                  כרגע אין קרדיטים זמינים ב-API, ולכן העוזר החכם שלנו לא פעיל. אבל אל דאגה – זה זמני בלבד!
+
+                  💡 מה אפשר לעשות בינתיים?
+                  ✅ לחקור את שאר המערכת ולהתרשם מהיכולות שלנו
+                  ✅ לבדוק שוב מאוחר יותר – הבוט יחזור לפעול בקרוב
+                  ✅ להשאיר לנו הודעה ואנחנו נחזור אליך עם תשובה
+
+                  אנחנו עובדים כדי להבטיח חוויית משתמש חלקה ואינטראקטיבית, אז תודה על הסבלנות! 🙏
+                            `;
+        return res.json({ message: defaultResponse });
+    }
     const { message } = req.body;
     // @ts-ignore
     const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a._id;

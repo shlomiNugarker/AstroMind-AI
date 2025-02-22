@@ -111,6 +111,7 @@ const MessageBubble = ({ msg }: { msg: { role: string; text: string } }) => {
             ? "bg-primary text-primary-foreground"
             : "bg-secondary text-secondary-foreground"
         } ${isHebrew(msg.text) ? "text-right" : "text-left"}`}
+        dir={isHebrew(msg.text) ? "rtl" : "ltr"}
       >
         {msg.text}
       </div>
