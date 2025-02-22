@@ -20,18 +20,18 @@
   "delete": "Delete",
   "role": "Role",
   "actions": "Actions",
-  "coach_management": "Coach Management",
   "Deactivate": "Deactivate",
   "activate": "Activate",
   "unauthorized": "You are not authorized to view this page",
   "user_management": "User Management",
   "admin_dashboard": "Admin Dashboard",
-  "with_the_assistant": "🔮 with Your Personal Mentor – Astrology & AI Coaching 🤖",
+  "with_the_assistant": "with Your Personal Mentor – Astrology & AI Coaching",
   "chat": "Chat",
   "type_your_message_here": "Type your message here",
   "loading": "Loading...",
   "no_messages": "No messages",
   "have_account": "Already have an account? Login here",
   "no_account": "Don't have an account? Register here",
-  "built_with_love_by_Shlomi": "Built with ❤️ by Shlomi"
+  "built_with_love_by_Shlomi": "Built with ❤️ by Shlomi",
+  "thinking": "Thinking..."
 }

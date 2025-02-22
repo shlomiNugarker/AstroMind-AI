@@ -55,7 +55,7 @@ const AdminUsers = () => {
 
       <table className="w-full border-collapse border border-gray-300 mt-4">
         <thead>
-          <tr className="bg-gray-200">
+          <tr className="">
             <th className="border p-2">{t("name")}</th>
             <th className="border p-2">{t("email")}</th>
             <th className="border p-2">{t("role")}</th>

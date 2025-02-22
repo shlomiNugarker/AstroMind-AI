@@ -65,7 +65,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-background h-full w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
+    <div className="flex flex-col bg-background max-h-[calc(100vh-150px)] h-full w-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
       <div className="flex items-center justify-center">
         <Logo className="h-[130px]" />
       </div>
@@ -88,12 +88,14 @@ const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {loading && (
-        <div className="flex justify-center items-center text-muted-foreground mt-2">
-          <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
-          <span className="ml-2">{t("loading")}</span>
-        </div>
-      )}
+      <div
+        className={`flex justify-center items-center text-muted-foreground mt-2 ${
+          loading ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
+        <span className="ml-2">{t("thinking")}</span>
+      </div>
 
       <div className="p-4 bg-card shadow-lg flex items-center border-t border-border">
         <input

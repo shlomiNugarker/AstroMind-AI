@@ -25,12 +25,13 @@
   "unauthorized": "אינך מורשה לצפות בדף זה",
   "user_management": "ניהול משתמשים",
   "admin_dashboard": "לוח בקרה של מנהל",
-  "with_the_assistant": "🔮 עם המנטור האישי שלך – אסטרולוגיה ואימון בליווי AI 🤖",
+  "with_the_assistant": "עם המנטור האישי שלך – אסטרולוגיה ואימון בליווי AI",
   "chat": "צ'אט",
   "type_your_message_here": "הקלד את ההודעה שלך כאן",
   "loading": "טוען...",
   "no_messages": "אין הודעות",
   "have_account": "אין לך חשבון? הירשם כאן",
   "no_account": "אין לך חשבון? הירשם כאן",
-  "built_with_love_by_Shlomi": "נבנה באהבה ❤️ על ידי שלומי"
+  "built_with_love_by_Shlomi": "נבנה באהבה ❤️ על ידי שלומי",
+  "thinking": "חושב..."
 }
