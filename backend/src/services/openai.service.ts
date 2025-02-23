@@ -45,7 +45,7 @@ export const generateResponse = async (
   lang: "en" | "he"
 ) => {
   const lowerInput = userInput.trim().toLowerCase();
-  const threshold = 0.15; // יותר סלחני - תופס התאמות גם אם הן לא חזקות
+  const threshold = 0.35; // יותר סלחני - תופס התאמות גם אם הן לא חזקות
   let bestMatch = "";
   let bestScore = 0;
 
@@ -74,8 +74,8 @@ export const generateResponse = async (
 
   if (!process.env.OPENAI_API_KEY) {
     return lang === "he"
-      ? "⚠️ OPENAI_API_KEY חסר. הצטרף למערכת כדי להשתמש בשירות."
-      : "⚠️ OPENAI_API_KEY is missing. Join the system to use the service.";
+      ? "אני לא חכם מספיק כדי לענות על זה בגלל שהאפליקציה במצב דמו, צור קשר עם המפתח לעוד פרטים - shlomin1231@gmail.com"
+      : "I'm not smart enough to answer this because the app is in demo mode, contact the developer for more details - shlomin1231@gmail.com";
   }
 
   const useCheaperModel = lowerInput.length < 50;

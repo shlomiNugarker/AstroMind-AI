@@ -70,10 +70,10 @@ const Chat = () => {
         <Logo className="h-[130px]" />
       </div>
 
-      <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center">
+      {/* <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center">
         <span className="text-primary">{t("chat")}</span>{" "}
-      </h1>
-      <hr className="my-2 border-border" />
+      </h1> */}
+      <hr className="border-border" />
 
       <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-2">
         {messages.map((msg, index) => (
@@ -115,7 +115,7 @@ const Chat = () => {
       <div className="text-muted-foreground text-center p-2">
         <Link
           className="underline"
-          to={"https://shlomi-nugarker.vercel.app/"}
+          to={"mailto:shlomin1231@gmail.com"}
           target="_blank"
         >
           {t("built_with_love_by_Shlomi")}
