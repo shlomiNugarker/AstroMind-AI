@@ -2,7 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { httpService } from "@/services/http.service";
 import { useAuth } from "@/context/AuthContext";
 import { t } from "i18next";
-import { isHebrew } from "@/services/utils";
+import {
+  convertEnglishToHebrew,
+  convertHebrewToEnglish,
+  isHebrew,
+} from "@/services/utils";
 import { FaPaperPlane } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import i18n from "@/i18n";
@@ -64,17 +68,20 @@ const Chat = () => {
     }
   };
 
+  const toggleLanguage = () => {
+    setInput((prevInput) => {
+      return isHebrew(prevInput)
+        ? convertHebrewToEnglish(prevInput)
+        : convertEnglishToHebrew(prevInput);
+    });
+  };
+
   return (
     <div className="flex flex-col bg-background h-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
       <div className="flex items-center justify-center">
         <Logo className="h-[130px]" />
       </div>
-
-      {/* <h1 className="text-center text-2xl font-semibold pb-4 flex flex-col items-center">
-        <span className="text-primary">{t("chat")}</span>{" "}
-      </h1> */}
       <hr className="border-border" />
-
       <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-2">
         {messages.map((msg, index) => (
           <MessageBubble key={index} msg={msg} />
@@ -105,6 +112,12 @@ const Chat = () => {
           className="flex-1 p-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
           placeholder={t("type_your_message_here")}
         />
+        <button
+          onClick={toggleLanguage}
+          className="m-2 px-4 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors duration-200"
+        >
+          {t("toggle_language")}
+        </button>
         <button
           onClick={sendMessage}
           className="m-2 px-4 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center"
