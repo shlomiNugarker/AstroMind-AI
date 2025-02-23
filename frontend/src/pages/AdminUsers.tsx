@@ -38,50 +38,95 @@ const AdminUsers = () => {
   };
 
   const handleDeleteUser = async (userId: string) => {
+    if (!window.confirm(t("confirm_delete_user"))) return;
     try {
       await httpService.del(`/api/users/${userId}`, true);
+      setUsers((prev) => prev.filter((u) => u._id !== userId));
     } catch (err) {
       console.error(err);
       setError("Failed to delete user");
     }
   };
 
-  if (loading) return <p>{t("loading")}</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-76px)] bg-background">
+        <p className="text-lg font-medium text-foreground animate-fadeIn">
+          {t("loading")}
+        </p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex items-center justify-center h-[calc(100vh-76px)] bg-background">
+        <p className="text-lg font-medium text-destructive">{error}</p>
+      </div>
+    );
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">{t("user_management")}</h1>
-
-      <table className="w-full border-collapse border border-gray-300 mt-4">
-        <thead>
-          <tr className="">
-            <th className="border p-2">{t("name")}</th>
-            <th className="border p-2">{t("email")}</th>
-            <th className="border p-2">{t("role")}</th>
-            <th className="border p-2">{t("actions")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id} className="text-center">
-              <td className="border p-2">{user.name}</td>
-              <td className="border p-2">{user.email}</td>
-              <td className="border p-2">{t(user.role)}</td>
-              <td className="border p-2">
-                {user.role !== "admin" && (
-                  <button
-                    className="bg-red-500 text-white px-3 py-1 rounded"
-                    onClick={() => handleDeleteUser(user._id)}
+    <div className="container mx-auto p-6 bg-background h-[calc(100vh-76px)]">
+      <div className="bg-card text-card-foreground shadow rounded-lg p-6">
+        <h1 className="text-3xl font-bold mb-6">{t("user_management")}</h1>
+        <div className="overflow-x-auto">
+          <table className="min-w-full border-collapse">
+            <thead>
+              <tr className="bg-muted">
+                <th className="px-4 py-2 border border-border text-left text-foreground">
+                  {t("name")}
+                </th>
+                <th className="px-4 py-2 border border-border text-left text-foreground">
+                  {t("email")}
+                </th>
+                <th className="px-4 py-2 border border-border text-left text-foreground">
+                  {t("role")}
+                </th>
+                <th className="px-4 py-2 border border-border text-center text-foreground">
+                  {t("actions")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr
+                  key={user._id}
+                  className="hover:bg-muted/20 transition-colors"
+                >
+                  <td className="px-4 py-2 border border-border text-foreground">
+                    {user.name}
+                  </td>
+                  <td className="px-4 py-2 border border-border text-foreground">
+                    {user.email}
+                  </td>
+                  <td className="px-4 py-2 border border-border text-foreground">
+                    {t(user.role)}
+                  </td>
+                  <td className="px-4 py-2 border border-border text-center">
+                    {user.role !== "admin" && (
+                      <button
+                        onClick={() => handleDeleteUser(user._id)}
+                        className="bg-destructive hover:bg-destructive/90 text-destructive-foreground font-semibold px-4 py-2 rounded transition-colors"
+                      >
+                        {t("delete")}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+              {users.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={4}
+                    className="px-4 py-4 text-center text-muted-foreground"
                   >
-                    {t("delete")}
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                    {t("no_users_found")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
