@@ -106,14 +106,14 @@ const Chat = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div
-        className={`flex justify-center items-center text-muted-foreground mt-2 ${
-          loading ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
-        <span className="ml-2">{t("thinking")}</span>
-      </div>
+      {loading && (
+        <div
+          className={`flex justify-center items-center text-muted-foreground mt-2`}
+        >
+          <AiOutlineLoading3Quarters className="animate-spin text-xl p-1" />
+          <span className="ml-2">{t("thinking")}</span>
+        </div>
+      )}
 
       <div className="p-4 bg-card shadow-lg flex items-center border-t border-border">
         <textarea
