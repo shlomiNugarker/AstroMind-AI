@@ -85,9 +85,10 @@ export const generateResponse = async (
 
   try {
     const response = await openai.chat.completions.create({
+      // model: "gpt-4-turbo",
       model: useCheaperModel ? "gpt-3.5-turbo" : "gpt-4-turbo",
       messages: chatHistory,
-      max_tokens: 150, // תגובות קצרות ומדויקות
+      max_tokens: 650, // תגובות קצרות ומדויקות
       temperature: 0.5, // פחות חזרות ויותר רלוונטיות
       top_p: 0.85, // איזון בין יצירתיות לאמינות
       frequency_penalty: 0.2, // מונע חזרות

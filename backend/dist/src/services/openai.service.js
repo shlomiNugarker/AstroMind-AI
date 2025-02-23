@@ -85,9 +85,10 @@ const generateResponse = (userInput, lang) => __awaiter(void 0, void 0, void 0, 
     chatHistory = chatHistory.slice(-5);
     try {
         const response = yield openai.chat.completions.create({
+            // model: "gpt-4-turbo",
             model: useCheaperModel ? "gpt-3.5-turbo" : "gpt-4-turbo",
             messages: chatHistory,
-            max_tokens: 150,
+            max_tokens: 650,
             temperature: 0.5,
             top_p: 0.85,
             frequency_penalty: 0.2,

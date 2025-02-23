@@ -89,8 +89,8 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col bg-background h-full md:max-w-mxl xl:max-w-xl rounded-lg shadow-lg border border-border m-5">
-      <div className="flex items-center justify-center">
+    <div className="flex flex-col bg-background h-full w-full sm:w-1/2  rounded-lg shadow-lg border border-border">
+      <div className="flex items-center justify-center w-full">
         <Logo className="h-[130px]" />
       </div>
       <hr className="border-border" />
@@ -107,7 +107,7 @@ const Chat = () => {
       </div>
 
       <div
-        className={`flex justify-center fixed items-center text-muted-foreground mt-2 ${
+        className={`flex justify-center items-center text-muted-foreground mt-2 ${
           loading ? "opacity-100" : "opacity-0"
         }`}
       >
