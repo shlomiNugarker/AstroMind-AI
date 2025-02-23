@@ -7,7 +7,7 @@ import {
   convertHebrewToEnglish,
   isHebrew,
 } from "@/services/utils";
-import { FaPaperPlane } from "react-icons/fa";
+import { FaExchangeAlt, FaPaperPlane } from "react-icons/fa";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import i18n from "@/i18n";
 import Logo from "./Logo";
@@ -109,15 +109,17 @@ const Chat = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          className="flex-1 p-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
+          className="flex-1 p-2 mx-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
           placeholder={t("type_your_message_here")}
         />
-        <button
-          onClick={toggleLanguage}
-          className="m-2 px-4 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors duration-200"
-        >
-          {t("toggle_language")}
-        </button>
+        {input && isHebrew(input) !== (userLang === "he") && (
+          <button
+            onClick={toggleLanguage}
+            className="p-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition duration-200 flex items-center"
+          >
+            <FaExchangeAlt />
+          </button>
+        )}
         <button
           onClick={sendMessage}
           className="m-2 px-4 py-3 bg-accent text-accent-foreground rounded-lg hover:bg-accent/90 transition-colors duration-200 flex items-center"
