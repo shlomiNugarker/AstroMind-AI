@@ -21,6 +21,7 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
   const userLang = i18n.language;
 
@@ -40,6 +41,16 @@ const Chat = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = `${Math.min(
+        inputRef.current.scrollHeight,
+        150
+      )}px`;
+    }
+  }, [input]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -74,6 +85,7 @@ const Chat = () => {
         ? convertHebrewToEnglish(prevInput)
         : convertEnglishToHebrew(prevInput);
     });
+    inputRef.current?.focus();
   };
 
   return (
@@ -104,13 +116,14 @@ const Chat = () => {
       </div>
 
       <div className="p-4 bg-card shadow-lg flex items-center border-t border-border">
-        <input
-          type="text"
+        <textarea
+          ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          className="flex-1 p-2 mx-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200 text-foreground"
+          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+          className="flex-1 p-3 bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition duration-200 text-foreground resize-none overflow-auto min-h-[50px] mx-2"
           placeholder={t("type_your_message_here")}
+          rows={1}
         />
         {input && isHebrew(input) !== (userLang === "he") && (
           <button

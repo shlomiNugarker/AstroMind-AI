@@ -91,7 +91,7 @@ export const LanguageToggle = ({
                     className="w-6 h-5 object-cover shadow"
                   />
                 </span>
-                <span className="ml-2">{lang.name}</span>
+                <span className="mx-2">{lang.name}</span>
               </button>
             ))}
           </div>
