@@ -39,7 +39,6 @@ exports.simpleResponses = {
     תודה: "בכיף! 😊",
     למה: "אני פשוט בוט, אבל אני תמיד כאן לעזור! 😊",
     וואלה: "וואלה וואלה 😉",
-    "מי בנה אותך": "נבניתי באהבה על ידי שלומי נוגרקר! ❤️",
     "who created you?": "I was created by Shlomi Nugarker! ❤️",
     "what is your name?": "My name is AstroBot! 🌟",
     "how are you?": "I'm just a bot, but I'm always here to help! 😊",
