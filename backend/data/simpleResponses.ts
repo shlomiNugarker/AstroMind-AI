@@ -40,7 +40,6 @@ export const simpleResponses: Record<string, string> = {
   תודה: "בכיף! 😊",
   למה: "אני פשוט בוט, אבל אני תמיד כאן לעזור! 😊",
   וואלה: "וואלה וואלה 😉",
-  "who created you?": "I was created by Shlomi Nugarker! ❤️",
   "what is your name?": "My name is AstroBot! 🌟",
   "how are you?": "I'm just a bot, but I'm always here to help! 😊",
   "where are you from?": "I'm from the digital world!",
