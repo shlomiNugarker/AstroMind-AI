@@ -34,7 +34,7 @@ router.post("/", auth_middleware_1.authMiddleware, (req, res) => __awaiter(void 
     }
     try {
         yield ChatMessage_1.ChatMessage.create({ userId, role: "user", text: message });
-        const assistantResponse = yield (0, openai_service_1.generateResponse)(message, lang);
+        const assistantResponse = yield (0, openai_service_1.generateResponse)(message, lang, userId);
         yield ChatMessage_1.ChatMessage.create({
             userId,
             role: "system",

@@ -27,7 +27,7 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
   try {
     await ChatMessage.create({ userId, role: "user", text: message });
 
-    const assistantResponse = await generateResponse(message, lang);
+    const assistantResponse = await generateResponse(message, lang, userId);
 
     await ChatMessage.create({
       userId,
